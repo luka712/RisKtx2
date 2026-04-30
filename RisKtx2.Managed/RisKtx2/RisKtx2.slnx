@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="RisKtx2.Tests/RisKtx2.Tests.csproj" />
+  <Project Path="RisKtx2/RisKtx2.csproj" />
+</Solution>

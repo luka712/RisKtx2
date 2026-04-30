@@ -1,0 +1,112 @@
+name: Publish Release NuGet Package
+
+permissions:
+  contents: write
+  packages: write
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout repository
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Extract version from CHANGELOG.md
+      - name: Extract version from CHANGELOG.md
+        id: extract_version
+        run: |
+          if [ ! -f CHANGELOG.md ]; then
+            echo "❌ CHANGELOG.md not found!"
+            exit 1
+          fi
+
+          VERSION=$(grep -m1 -oP '(?<=## \[)[^]]+' CHANGELOG.md)
+
+          if [ -z "$VERSION" ]; then
+            echo "❌ Could not extract version from CHANGELOG.md"
+            exit 1
+          fi
+
+          echo "Found version: $VERSION"
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      # Setup .NET
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      # Build
+      - name: Build
+        run: dotnet build ./RisKtx2/RisKtx2.sln --configuration Release
+
+      # Pack with version from CHANGELOG.md
+      - name: Pack
+        run: |
+          dotnet pack ./RisKtx2/RisKtx2.sln \
+            --configuration Release \
+            --no-build \
+            /p:PackageVersion=${{ env.VERSION }}
+
+      # Find NuGet package
+      - name: Find NuGet packages
+        id: find_pkgs
+        run: |
+          mapfile -t packages < <(find ./RisKtx2 -name "*.nupkg" ! -name "*symbols*.nupkg")
+
+          if [ ${#packages[@]} -eq 0 ]; then
+            echo "❌ No .nupkg files found!"
+            exit 1
+          fi
+
+          {
+            echo "packages<<EOF"
+            printf '%s\n' "${packages[@]}"
+            echo "EOF"
+          } >> $GITHUB_OUTPUT
+
+      # Publish to NuGet
+      - name: Publish all NuGet packages
+        run: |
+          while IFS= read -r pkg; do
+            [[ -z "$pkg" ]] && continue
+            echo "Publishing $pkg"
+            dotnet nuget push "$pkg" \
+              --api-key ${{ secrets.NUGET_API_KEY }} \
+              --source https://api.nuget.org/v3/index.json \
+              --skip-duplicate
+          done <<< "${{ steps.find_pkgs.outputs.packages }}"
+
+      # Create and push git tag
+      - name: Create and push git tag
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          if git rev-parse "v${{ env.VERSION }}" >/dev/null 2>&1; then
+            echo "Tag already exists. Skipping."
+          else
+            git tag "v${{ env.VERSION }}"
+            git push origin "v${{ env.VERSION }}"
+          fi
+
+      # Create GitHub Release
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ env.VERSION }}
+          name: ${{ env.VERSION }}
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+          files: |
+            ${{ steps.find_pkgs.outputs.packages }}
+          overwrite: true
