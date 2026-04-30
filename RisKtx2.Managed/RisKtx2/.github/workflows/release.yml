@@ -46,12 +46,12 @@ jobs:
 
       # Build
       - name: Build
-        run: dotnet build ./RisKtx2/RisKtx2.sln --configuration Release
+        run: dotnet build ./RisKtx2.Managed/RisKtx2/RisKtx2.sln --configuration Release
 
       # Pack with version from CHANGELOG.md
       - name: Pack
         run: |
-          dotnet pack ./RisKtx2/RisKtx2.sln \
+          dotnet pack ./RisKtx2.Managed/RisKtx2/RisKtx2.sln \
             --configuration Release \
             --no-build \
             /p:PackageVersion=${{ env.VERSION }}
@@ -60,7 +60,7 @@ jobs:
       - name: Find NuGet packages
         id: find_pkgs
         run: |
-          mapfile -t packages < <(find ./RisKtx2 -name "*.nupkg" ! -name "*symbols*.nupkg")
+          mapfile -t packages < <(find ./RisKtx2.Managed/RisKtx2 -name "*.nupkg" ! -name "*symbols*.nupkg")
 
           if [ ${#packages[@]} -eq 0 ]; then
             echo "❌ No .nupkg files found!"
