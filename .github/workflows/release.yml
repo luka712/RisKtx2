@@ -42,16 +42,16 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.x'
+          dotnet-version: '10.0.x'
 
       # Build
       - name: Build
-        run: dotnet build ./RisKtx2.Managed/RisKtx2/RisKtx2.sln --configuration Release
+        run: dotnet build ./RisKtx2.Managed/RisKtx2/RisKtx2.slnx --configuration Release
 
       # Pack with version from CHANGELOG.md
       - name: Pack
         run: |
-          dotnet pack ./RisKtx2.Managed/RisKtx2/RisKtx2.sln \
+          dotnet pack ./RisKtx2.Managed/RisKtx2/RisKtx2.slnx \
             --configuration Release \
             --no-build \
             /p:PackageVersion=${{ env.VERSION }}
