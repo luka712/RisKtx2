@@ -117,6 +117,11 @@ API_EXPORT KTX_error_code ris_ktxTexture2_SetImageFromMemory(
 	return ktxTexture_SetImageFromMemory(ktxTexture(tex), level, layer, faceSlice, src, srcSize);
 }
 
+API_EXPORT KTX_error_code ris_ktxTexture2_CompressBasis(ktxTexture2* tex, uint32_t quality)
+{
+	return ktxTexture2_CompressBasis(tex, quality);	
+}
+
 API_EXPORT KTX_error_code ris_ktxTexture2_CompressBasisEx(
 	ktxTexture2* tex,
 	const ris_ktxBasisParams* params)
@@ -129,6 +134,7 @@ API_EXPORT KTX_error_code ris_ktxTexture2_CompressBasisEx(
 	ktxParams.uastcFlags = KTX_PACK_UASTC_LEVEL_DEFAULT;
 	ktxParams.threadCount = 0;
 	ktxParams.uastcRDO = KTX_FALSE;
+
 
 	return ktxTexture2_CompressBasisEx(tex, &ktxParams);
 }

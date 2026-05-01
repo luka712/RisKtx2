@@ -266,7 +266,22 @@ namespace RisKtx2
             {
                 ris_ktxBasisParams* basisParamsPtr = stackalloc ris_ktxBasisParams[1];
                 *basisParamsPtr = basisParams.ToNative();
-                ris_ktxTexture2_CompressBasisEx(TexturePtr, (nint)basisParamsPtr);
+                var result = ris_ktxTexture2_CompressBasisEx(TexturePtr, (nint)basisParamsPtr);
+
+                if (result != KtxErrorCode.KTX_SUCCESS)
+                {
+                    throw new Exception($"Failed to compress KTX texture with basis parameters. Error code: {result}");
+                }
+            }
+        }
+
+        public void CompressBasis(uint quality)
+        {
+            var result = ris_ktxTexture2_CompressBasis(TexturePtr, quality);
+
+            if (result != KtxErrorCode.KTX_SUCCESS)
+            {
+                throw new Exception($"Failed to compress KTX texture with quality {quality}. Error code: {result}");
             }
         }
 

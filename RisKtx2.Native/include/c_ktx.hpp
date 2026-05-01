@@ -84,6 +84,9 @@ KTX_error_code ris_ktxTexture2_SetImageFromMemory(
     const uint8_t* src,
     size_t srcSize);
 
+API_EXPORT
+KTX_error_code ris_ktxTexture2_CompressBasis(ktxTexture2* tex, uint32_t quality);
+
 /**
  * @brief Compress a KTX2 texture using Basis Universal.
  * @param tex    Texture to compress.

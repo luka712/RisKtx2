@@ -65,7 +65,7 @@ namespace RisGameFramework.SpriteToolkit.Tests
         private Ktx2Texture CreateAndFillTexture()
         {
             StbImageLoader loader = new();
-            var bytes = loader.LoadImage(TEXT_PNG, out int width, out int height, out int channels);
+            var bytes = loader.Load(TEXT_PNG, out int width, out int height, out int channels);
 
             var createInfo = new KtxTextureCreateInfo
             {

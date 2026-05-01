@@ -78,6 +78,11 @@ namespace RisKtx2.Native
             IntPtr texture,
             IntPtr basisParams);
 
+        [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern KtxErrorCode ris_ktxTexture2_CompressBasis(
+            IntPtr texture,
+            uint quality);
+
         #endregion
 
         #region Data Access
