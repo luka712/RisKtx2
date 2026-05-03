@@ -6,15 +6,28 @@ using Silk.NET.Windowing;
 
 namespace RisKtx2.Examples.SilkNet;
 
+/// <summary>
+/// WebGPU example demonstrating KTX2 texture loading and rendering.
+/// Shows how to load, transcode, and upload compressed textures to the GPU.
+/// </summary>
 public unsafe class Program
 {
+    #region Constants
+
     private const int WINDOW_WIDTH = 800;
     private const int WINDOW_HEIGHT = 600;
     private const string WINDOW_TITLE = "RisKtx2 WebGPU Example";
     private const string TEST_TEXTURE_PATH = "test.ktx2";
 
+    #endregion
+
+    #region Fields
+
+    // Window and WebGPU core
     private IWindow _window = null!;
     private WebGPU _wgpu = null!;
+    
+    // WebGPU objects
     private Instance* _instance;
     private Surface* _surface;
     private Adapter* _adapter;
@@ -22,6 +35,7 @@ public unsafe class Program
     private Queue* _queue;
     private SwapChain* _swapChain;
 
+    // Rendering resources
     private RenderPipeline* _pipeline;
     private BindGroup* _bindGroup;
     private Silk.NET.WebGPU.Texture* _texture;
@@ -31,6 +45,10 @@ public unsafe class Program
     private Silk.NET.WebGPU.Buffer* _indexBuffer;
 
     private uint _indexCount;
+
+    #endregion
+
+    #region Entry Point
 
     public static void Main(string[] args)
     {
@@ -44,7 +62,7 @@ public unsafe class Program
         {
             Size = new Vector2D<int>(WINDOW_WIDTH, WINDOW_HEIGHT),
             Title = WINDOW_TITLE,
-            API = GraphicsAPI.None, // We'll use WebGPU manually
+            API = GraphicsAPI.None, // Using WebGPU manually
             VSync = true
         };
 
@@ -56,12 +74,16 @@ public unsafe class Program
         _window.Run();
     }
 
-    private unsafe void OnLoad()
+    #endregion
+
+    #region Initialization
+
+    private void OnLoad()
     {
-        // Initialize WebGPU
+        // Initialize WebGPU API
         _wgpu = WebGPU.GetApi();
 
-        // Create instance
+        // Create WebGPU instance
         var instanceDescriptor = new InstanceDescriptor();
         _instance = _wgpu.CreateInstance(&instanceDescriptor);
 
@@ -70,28 +92,32 @@ public unsafe class Program
             throw new Exception("Failed to create WebGPU instance");
         }
 
-        // Create surface
+        // Create window surface for rendering
         _surface = _window.CreateWebGPUSurface(_wgpu, _instance);
 
-        // Request adapter
+        // Request GPU adapter
         _adapter = RequestAdapter();
 
-        // Request device
+        // Request logical device with required features
         _device = RequestDevice();
 
-        // Get queue
+        // Get command queue
         _queue = _wgpu.DeviceGetQueue(_device);
 
-        // Configure swap chain
+        // Configure surface for presentation
         ConfigureSurface();
 
-        // Load texture and create GPU resources
+        // Load and prepare resources
         LoadTexture(TEST_TEXTURE_PATH);
         CreatePipeline();
         CreateGeometry();
     }
 
-    private unsafe Adapter* RequestAdapter()
+    /// <summary>
+    /// Requests a GPU adapter from the WebGPU instance.
+    /// Prefers high-performance adapters compatible with our surface.
+    /// </summary>
+    private Adapter* RequestAdapter()
     {
         Adapter* adapter = null;
         var options = new RequestAdapterOptions
@@ -120,10 +146,16 @@ public unsafe class Program
         return adapter;
     }
 
-    private unsafe Device* RequestDevice()
+    /// <summary>
+    /// Requests a logical device from the adapter.
+    /// Requires BC texture compression support (common on desktop GPUs).
+    /// </summary>
+    private Device* RequestDevice()
     {
         Device* device = null;
         var deviceDescriptor = new DeviceDescriptor();
+        
+        // Request BC compression feature
         var features = stackalloc FeatureName[1];
         features[0] = FeatureName.TextureCompressionBC;
         deviceDescriptor.RequiredFeatures = features;
@@ -149,7 +181,11 @@ public unsafe class Program
         return device;
     }
 
-    private unsafe void ConfigureSurface()
+    /// <summary>
+    /// Configures the surface for presentation.
+    /// Sets up swap chain with preferred format and VSync.
+    /// </summary>
+    private void ConfigureSurface()
     {
         var surfaceFormat = _wgpu.SurfaceGetPreferredFormat(_surface, _adapter);
         var surfaceConfiguration = new SurfaceConfiguration
@@ -158,24 +194,33 @@ public unsafe class Program
             Format = surfaceFormat,
             Width = (uint)_window.Size.X,
             Height = (uint)_window.Size.Y,
-            PresentMode = PresentMode.Fifo,
+            PresentMode = PresentMode.Fifo, // VSync enabled
             Device = _device
         };
 
         _wgpu.SurfaceConfigure(_surface, in surfaceConfiguration);
     }
 
-    private unsafe void LoadTexture(string path)
+    #endregion
+
+    #region Texture Loading
+
+    /// <summary>
+    /// Loads a KTX2 texture file, transcodes if needed, and uploads to GPU.
+    /// Handles multiple mip levels and compressed formats.
+    /// </summary>
+    private void LoadTexture(string path)
     {
         using var ktx2Texture = new Ktx2Texture(path);
 
-        // Transcode to BC7 if needed (widely supported compressed format)
+        // Transcode Basis Universal to BC7 if needed
+        // BC7 provides high quality and is widely supported on desktop
         if (ktx2Texture.NeedsTranscoding)
         {
             ktx2Texture.TranscodeBasis(KtxTranscodeFormat.KTX_TTF_BC7_RGBA);
         }
 
-        // Create WebGPU texture
+        // Create GPU texture descriptor
         var textureDescriptor = new TextureDescriptor
         {
             Size = new Extent3D
@@ -193,21 +238,26 @@ public unsafe class Program
 
         _texture = _wgpu.DeviceCreateTexture(_device, &textureDescriptor);
 
-        // Upload texture data level by level, ensuring proper alignment for compressed formats
+        // Upload each mip level
+        // For compressed formats, dimensions must be aligned to block size (4x4 for BC7)
         for (uint level = 0; level < ktx2Texture.NumLevels; level++)
         {
+            // Get texture data for this mip level
             var data = ktx2Texture.GetTextureData(ktx2Texture.GetImageOffset(level, 0, 0));
             var size = ktx2Texture.GetImageSize(level);
 
+            // Calculate mip level dimensions
             uint logicalWidth = Math.Max(1, ktx2Texture.Width >> (int)level);
             uint logicalHeight = Math.Max(1, ktx2Texture.Height >> (int)level);
 
-            // 1. Round up to the nearest block (4)
+            // Round up to nearest 4x4 block for compressed formats
             uint physicalWidth = (logicalWidth + 3) & ~3u;
             uint physicalHeight = (logicalHeight + 3) & ~3u;
 
-            uint bytesPerRow = physicalWidth * 4; // 4 bytes per pixel for BC7 (adjust if using a different format)
+            // BC7 format: 16 bytes per 4x4 block
+            uint bytesPerRow = physicalWidth * 4;
 
+            // Define destination in texture
             var imageCopyTexture = new ImageCopyTexture
             {
                 Texture = _texture,
@@ -216,26 +266,27 @@ public unsafe class Program
                 Aspect = TextureAspect.All
             };
 
+            // Define source data layout
             var textureDataLayout = new TextureDataLayout
             {
                 Offset = 0,
                 BytesPerRow = bytesPerRow,
-                // 2. RowsPerImage must be the physical height (aligned to block size)
-                RowsPerImage = physicalHeight,
+                RowsPerImage = physicalHeight, // Must be block-aligned
             };
 
+            // Define copy extent (must be block-aligned)
             var extent = new Extent3D
             {
-                // 3. Use the physical (aligned) dimensions here
                 Width = physicalWidth,
                 Height = physicalHeight,
                 DepthOrArrayLayers = 1
             };
 
+            // Upload texture data to GPU
             _wgpu.QueueWriteTexture(_queue, &imageCopyTexture, (void*)data, (nuint)size, &textureDataLayout, &extent);
         }
 
-        // Create texture view
+        // Create texture view for shader access
         var viewDescriptor = new TextureViewDescriptor
         {
             Format = textureDescriptor.Format,
@@ -249,7 +300,7 @@ public unsafe class Program
 
         _textureView = _wgpu.TextureCreateView(_texture, &viewDescriptor);
 
-        // Create sampler
+        // Create sampler with linear filtering and mipmapping
         var samplerDescriptor = new SamplerDescriptor
         {
             AddressModeU = AddressMode.ClampToEdge,
@@ -264,9 +315,16 @@ public unsafe class Program
         _sampler = _wgpu.DeviceCreateSampler(_device, &samplerDescriptor);
     }
 
-    private unsafe void CreatePipeline()
+    #endregion
+
+    #region Pipeline Creation
+
+    /// <summary>
+    /// Creates the render pipeline with shaders, vertex layout, and bind groups.
+    /// </summary>
+    private void CreatePipeline()
     {
-        // Shader code
+        // WGSL shader code for textured quad rendering
         const string shaderCode = @"
 struct VertexOutput {
     @builtin(position) position: vec4<f32>,
@@ -290,7 +348,7 @@ fn fs_main(input: VertexOutput) -> @location(0) vec4<f32> {
 }
 ";
 
-        // Create shader module
+        // Create shader module from WGSL code
         var shaderCodePtr = SilkMarshal.StringToPtr(shaderCode);
         var shaderModuleDescriptor = new ShaderModuleWGSLDescriptor
         {
@@ -305,10 +363,10 @@ fn fs_main(input: VertexOutput) -> @location(0) vec4<f32> {
 
         SilkMarshal.Free(shaderCodePtr);
 
-        // Create bind group layout
+        // Create bind group layout for sampler and texture
         var bindGroupLayoutEntries = stackalloc BindGroupLayoutEntry[2];
 
-        // Sampler
+        // Binding 0: Sampler
         bindGroupLayoutEntries[0] = new BindGroupLayoutEntry
         {
             Binding = 0,
@@ -316,7 +374,7 @@ fn fs_main(input: VertexOutput) -> @location(0) vec4<f32> {
             Sampler = new SamplerBindingLayout { Type = SamplerBindingType.Filtering }
         };
 
-        // Texture
+        // Binding 1: Texture
         bindGroupLayoutEntries[1] = new BindGroupLayoutEntry
         {
             Binding = 1,
@@ -336,52 +394,73 @@ fn fs_main(input: VertexOutput) -> @location(0) vec4<f32> {
 
         var bindGroupLayout = _wgpu.DeviceCreateBindGroupLayout(_device, in bindGroupLayoutDescriptor);
 
+        // Create pipeline layout
         var pipelineLayoutDescriptor = new PipelineLayoutDescriptor
         {
             BindGroupLayoutCount = 1,
             BindGroupLayouts = &bindGroupLayout
         };
 
-        // Create pipeline layout
         var pipelineLayout = _wgpu.DeviceCreatePipelineLayout(_device, in pipelineLayoutDescriptor);
 
-        // Vertex attributes
+        // Define vertex attributes: position (vec2) + texCoord (vec2)
         var vertexAttributes = stackalloc VertexAttribute[2];
         vertexAttributes[0] = new VertexAttribute
         {
             Format = VertexFormat.Float32x2,
             Offset = 0,
-            ShaderLocation = 0
+            ShaderLocation = 0 // position
         };
         vertexAttributes[1] = new VertexAttribute
         {
             Format = VertexFormat.Float32x2,
-            Offset = 8,
-            ShaderLocation = 1
+            Offset = 8, // 2 floats * 4 bytes
+            ShaderLocation = 1 // texCoord
         };
 
         var vertexBufferLayout = new VertexBufferLayout
         {
-            ArrayStride = 16,
+            ArrayStride = 16, // 4 floats * 4 bytes
             StepMode = VertexStepMode.Vertex,
             AttributeCount = 2,
             Attributes = vertexAttributes
         };
 
-        // Create pipeline
+        // Get surface format for render target
         var swapChainFormat = _wgpu.SurfaceGetPreferredFormat(_surface, _adapter);
 
+        // Marshal shader entry point names
         var vsEntryPtr = SilkMarshal.StringToPtr("vs_main");
         var fsEntryPtr = SilkMarshal.StringToPtr("fs_main");
 
+        // Define blend state
+        var blendState = stackalloc BlendState[1];
+        blendState[0] = new BlendState
+        {
+            Color = new BlendComponent
+            {
+                SrcFactor = BlendFactor.SrcAlpha,
+                DstFactor = BlendFactor.OneMinusSrcAlpha,
+                Operation = BlendOperation.Add
+            },
+            Alpha = new BlendComponent
+            {
+                SrcFactor = BlendFactor.One,
+                DstFactor = BlendFactor.Zero,
+                Operation = BlendOperation.Add
+            }
+        };
+
+        // Define color target state
         var colorTargetState = stackalloc ColorTargetState[1];
         colorTargetState[0] = new ColorTargetState
         {
             Format = swapChainFormat,
             WriteMask = ColorWriteMask.All,
-            Blend = null
+            Blend = blendState
         };
 
+        // Define fragment state
         var fragmentState = stackalloc FragmentState[1];
         fragmentState[0] = new FragmentState
         {
@@ -391,6 +470,7 @@ fn fs_main(input: VertexOutput) -> @location(0) vec4<f32> {
             Targets = colorTargetState
         };
 
+        // Create render pipeline
         var pipelineDescriptor = new RenderPipelineDescriptor
         {
             Layout = pipelineLayout,
@@ -420,7 +500,7 @@ fn fs_main(input: VertexOutput) -> @location(0) vec4<f32> {
         SilkMarshal.Free(vsEntryPtr);
         SilkMarshal.Free(fsEntryPtr);
 
-        // Create bind group
+        // Create bind group with actual sampler and texture view
         var bindGroupEntries = stackalloc BindGroupEntry[2];
         bindGroupEntries[0] = new BindGroupEntry
         {
@@ -443,21 +523,30 @@ fn fs_main(input: VertexOutput) -> @location(0) vec4<f32> {
         _bindGroup = _wgpu.DeviceCreateBindGroup(_device, bindGroupDescriptor);
     }
 
-    private unsafe void CreateGeometry()
+    #endregion
+
+    #region Geometry Creation
+
+    /// <summary>
+    /// Creates vertex and index buffers for a textured quad.
+    /// Quad is centered at origin with size 1x1 in NDC space.
+    /// </summary>
+    private void CreateGeometry()
     {
-        // Quad vertices (position + texCoord)
+        // Quad vertices: position (xy) + texCoord (uv)
         float[] vertices =
         [
-            -0.5f, -0.5f,   0f, 0f,
-             0.5f, -0.5f,   1f, 0f,
-             0.5f,  0.5f,   1f, 1f,
-            -0.5f,  0.5f,   0f, 1f
+            -0.5f, -0.5f,   0f, 1f, 
+             0.5f, -0.5f,   1f, 1f, 
+             0.5f,  0.5f,   1f, 0f, 
+            -0.5f,  0.5f,   0f, 0f  
         ];
 
+        // Two triangles forming a quad
         ushort[] indices = [0, 1, 2, 2, 3, 0];
         _indexCount = (uint)indices.Length;
 
-        // Create vertex buffer
+        // Create and upload vertex buffer
         fixed (float* verticesPtr = vertices)
         {
             var vertexBufferDescriptor = new BufferDescriptor
@@ -471,7 +560,7 @@ fn fs_main(input: VertexOutput) -> @location(0) vec4<f32> {
             _wgpu.QueueWriteBuffer(_queue, _vertexBuffer, 0, verticesPtr, (nuint)vertexBufferDescriptor.Size);
         }
 
-        // Create index buffer
+        // Create and upload index buffer
         fixed (ushort* indicesPtr = indices)
         {
             var indexBufferDescriptor = new BufferDescriptor
@@ -486,22 +575,33 @@ fn fs_main(input: VertexOutput) -> @location(0) vec4<f32> {
         }
     }
 
-    private unsafe void OnRender(double deltaTime)
+    #endregion
+
+    #region Rendering
+
+    /// <summary>
+    /// Renders a frame with the textured quad.
+    /// Called every frame by the window.
+    /// </summary>
+    private void OnRender(double deltaTime)
     {
-        //  SurfaceTexture* nextTexture = null;
+        // Get current frame's texture from swap chain
         SurfaceTexture nextTexture = new();
         _wgpu.SurfaceGetCurrentTexture(_surface, ref nextTexture);
 
+        // Create texture view for rendering
         var nextTextureView = _wgpu.TextureCreateView(nextTexture.Texture, null);
 
+        // Create command encoder for recording GPU commands
         var commandEncoder = _wgpu.DeviceCreateCommandEncoder(_device, null);
 
+        // Begin render pass with clear color
         var colorAttachment = new RenderPassColorAttachment
         {
             View = nextTextureView,
             LoadOp = LoadOp.Clear,
             StoreOp = StoreOp.Store,
-            ClearValue = new Color { R = 0.1, G = 0.1, B = 0.15, A = 1.0 }
+            ClearValue = new Color { R = 0.95, G = 0.5, B = 0.6, A = 1.0 }
         };
 
         var renderPassDescriptor = new RenderPassDescriptor
@@ -512,23 +612,36 @@ fn fs_main(input: VertexOutput) -> @location(0) vec4<f32> {
 
         var renderPass = _wgpu.CommandEncoderBeginRenderPass(commandEncoder, &renderPassDescriptor);
 
+        // Set pipeline and resources
         _wgpu.RenderPassEncoderSetPipeline(renderPass, _pipeline);
         _wgpu.RenderPassEncoderSetBindGroup(renderPass, 0, _bindGroup, 0, null);
         _wgpu.RenderPassEncoderSetVertexBuffer(renderPass, 0, _vertexBuffer, 0, ulong.MaxValue);
         _wgpu.RenderPassEncoderSetIndexBuffer(renderPass, _indexBuffer, IndexFormat.Uint16, 0, ulong.MaxValue);
+        
+        // Draw indexed quad (6 indices, 2 triangles)
         _wgpu.RenderPassEncoderDrawIndexed(renderPass, _indexCount, 1, 0, 0, 0);
 
         _wgpu.RenderPassEncoderEnd(renderPass);
 
+        // Finish encoding and submit to GPU
         var commandBuffer = _wgpu.CommandEncoderFinish(commandEncoder, null);
         _wgpu.QueueSubmit(_queue, 1, &commandBuffer);
 
+        // Present the rendered frame
         _wgpu.SurfacePresent(_surface);
     }
 
-    private unsafe void OnClosing()
+    #endregion
+
+    #region Cleanup
+
+    /// <summary>
+    /// Releases all WebGPU resources.
+    /// Called when the window is closing.
+    /// </summary>
+    private void OnClosing()
     {
-        // Cleanup resources
+        // Release resources in reverse order of creation
         if (_vertexBuffer != null) _wgpu.BufferRelease(_vertexBuffer);
         if (_indexBuffer != null) _wgpu.BufferRelease(_indexBuffer);
         if (_bindGroup != null) _wgpu.BindGroupRelease(_bindGroup);
@@ -543,6 +656,13 @@ fn fs_main(input: VertexOutput) -> @location(0) vec4<f32> {
         if (_instance != null) _wgpu.InstanceRelease(_instance);
     }
 
+    #endregion
+
+    #region Utility Methods
+
+    /// <summary>
+    /// Maps Vulkan texture formats to WebGPU texture formats.
+    /// </summary>
     private static TextureFormat MapVkFormatToWebGPU(VkFormat format)
     {
         return format switch
@@ -559,10 +679,13 @@ fn fs_main(input: VertexOutput) -> @location(0) vec4<f32> {
     }
 
     /// <summary>
-    /// Aligns a value to the specified alignment.
+    /// Aligns a value to the specified alignment (power of 2).
+    /// Used for aligning texture dimensions to compressed format block sizes.
     /// </summary>
     private static uint AlignTo(uint value, uint alignment)
     {
         return (value + alignment - 1) & ~(alignment - 1);
     }
+
+    #endregion
 }

@@ -25,7 +25,7 @@ namespace RisKtx2.Examples.OpenTK
 
             SupportedTextureFormats();
 
-            GL.ClearColor(0.1f, 0.1f, 0.15f, 1f);
+            GL.ClearColor(0.3f, 0.6f, 0.95f, 1f);
 
             SetupQuad();
             _shaderProgram = CreateShader();
@@ -63,10 +63,10 @@ namespace RisKtx2.Examples.OpenTK
             float[] vertices =
             {
                 // pos        // uv
-                -0.5f, -0.5f,       0f, 0f,
-                0.5f, -0.5f,     1f, 0f,
-                0.5f, 0.5f,   1f, 1f,
-                -0.5f, 0.5f,     0f, 1f
+                -0.5f, -0.5f, 0f, 1f,
+                 0.5f, -0.5f, 1f, 1f,
+                 0.5f,  0.5f, 1f, 0f,
+                -0.5f,  0.5f, 0f, 0f
             };
 
             uint[] indices = [
@@ -99,6 +99,9 @@ namespace RisKtx2.Examples.OpenTK
             base.OnRenderFrame(args);
 
             GL.Clear(ClearBufferMask.ColorBufferBit);
+
+            GL.Enable(EnableCap.Blend);
+            GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
             GL.UseProgram(_shaderProgram);
             GL.BindVertexArray(_vao);
@@ -136,7 +139,7 @@ uniform sampler2D texture0;
 
 void main()
 {
-    FragColor = textureLod(texture0, vTexCoord, 0.0);
+    FragColor = texture(texture0, vTexCoord);
 }
 ";
 
