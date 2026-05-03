@@ -1,4 +1,6 @@
 <Solution>
+  <Project Path="RisKtx2.Examples.OpenTK/RisKtx2.Examples.OpenTK.csproj" Id="6e4534a6-c4de-4d63-9e0e-dfb29c30c2e1" />
+  <Project Path="RisKtx2.Examples.SilkNet.WebGPU/RisKtx2.Examples.SilkNet.WebGPU.csproj" Id="f22bc7f3-1764-4aac-96d7-44cae8017f3b" />
   <Project Path="RisKtx2.Tests/RisKtx2.Tests.csproj" />
   <Project Path="RisKtx2/RisKtx2.csproj" />
 </Solution>

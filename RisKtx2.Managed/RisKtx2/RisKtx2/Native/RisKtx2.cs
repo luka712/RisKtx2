@@ -220,5 +220,25 @@ namespace RisKtx2.Native
         internal static extern void ris_ktxTexture2_Destroy(IntPtr texture);
 
         #endregion
+
+        #region Querying
+
+        /// <summary>
+        /// Gets the number of mipmap levels in the texture.
+        /// </summary>
+        /// <param name="texture">The texture pointer.</param>
+        /// <returns>The number of mipmap levels.</returns>
+        [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern uint ris_ktxTexture2_GetNumLevels(IntPtr texture);
+
+        /// <summary>
+        /// Gets the Vulkan format of the texture.
+        /// </summary>
+        /// <param name="texture">The texture pointer.</param>
+        /// <returns>The Vulkan format.</returns>
+        [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern VkFormat ris_ktxTexture2_GetVkFormat(IntPtr texture);
+
+        #endregion
     }
 }

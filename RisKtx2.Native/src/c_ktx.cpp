@@ -21,11 +21,11 @@ API_EXPORT KTX_error_code ris_ktxTexture2_Create(
 	ktxCreateInfo.baseHeight = createInfo->baseHeight;
 	ktxCreateInfo.baseDepth = 1;
 	ktxCreateInfo.numDimensions = 2;
-	ktxCreateInfo.numLevels = 1;
+	ktxCreateInfo.numLevels = createInfo->numLevels;
 	ktxCreateInfo.numLayers = 1;
 	ktxCreateInfo.numFaces = 1;
 	ktxCreateInfo.isArray = KTX_FALSE;
-	ktxCreateInfo.generateMipmaps = KTX_FALSE;
+	ktxCreateInfo.generateMipmaps = createInfo->generateMipmaps;
 	ktxCreateInfo.vkFormat = createInfo->vkFormat;
 	ktxCreateInfo.pDfd = nullptr;
 	ktxCreateInfo.glInternalformat = 0;

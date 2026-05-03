@@ -16,6 +16,8 @@
 // @param channels Output parameter for the number of color channels in the image.
 unsigned char* loadTestPng(int* width, int* height, int* channels);
 
+unsigned char* generateMipLevel(unsigned char* input_data, int base_width, int base_height, int channels, int level, int* out_width, int* out_height);
+
 //! Frees the memory allocated for the PNG image data.
 void freeTestPng(unsigned char* data);
 

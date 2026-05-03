@@ -1,5 +1,6 @@
 ﻿using RisKtx2.Native;
 using static RisKtx2.Native.RisKtx2;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace RisKtx2
 {
@@ -114,7 +115,7 @@ namespace RisKtx2
         {
             return format switch
             {
-                KtxTranscodeFormat.BC7_RGBA => new TextureFormatInfo(4, 4, 1, 16),
+                KtxTranscodeFormat.KTX_TTF_BC7_RGBA => new TextureFormatInfo(4, 4, 1, 16),
                 _ => throw new NotSupportedException($"Unsupported transcode format: {format}")
             };
         }
@@ -126,7 +127,7 @@ namespace RisKtx2
         /// <returns>The size of image.</returns>
         public ulong GetImageSize(uint mipLevel)
         {
-           return ris_ktxTexture2_GetImageSize(TexturePtr, mipLevel);
+            return ris_ktxTexture2_GetImageSize(TexturePtr, mipLevel);
         }
 
         public uint GetRowPitch(uint mipLevel)
@@ -275,8 +276,39 @@ namespace RisKtx2
             }
         }
 
+        /// <summary>
+        /// Compresses a KTX2 texture using Basis Universal supercompression.
+        ///
+        /// The source images are encoded into Basis Universal format (typically ETC1S, depending on configuration)
+        /// and stored in a supercompressed form inside the KTX2 container.
+        ///
+        /// This process replaces the original uncompressed image data and updates the texture metadata (including DFD)
+        /// to reflect the new compressed state.
+        ///
+        /// <para/>
+        /// After compression, the texture cannot be directly uploaded to the GPU. It must first be transcoded
+        /// into a GPU-supported block-compressed format (such as ASTC, BC7, or ETC2) before use in rendering APIs.
+        /// </summary>
+        /// <param name="quality">
+        /// Compression quality value in the range 1–255.
+        /// If 0 is provided, a default value of 128 is used by the underlying implementation.
+        /// Lower values produce faster compression and smaller files with lower quality.
+        /// Higher values produce better quality but slower compression and larger output.
+        /// </param>
+        /// <exception cref="Exception">
+        /// Thrown if the Basis compression operation fails.
+        /// </exception>
+        /// <remarks>
+        /// Based on KTX-Software / libktx API:
+        /// https://github.khronos.org/KTX-Software/libktx/group__writer.html#ga405c44d6daf8ddf83dc805810bf4f989
+        /// </remarks>
         public void CompressBasis(uint quality)
         {
+            if (quality > 255)
+            {
+                throw new ArgumentOutOfRangeException(nameof(quality), "Quality must be in the range 0-255.");
+            }
+
             var result = ris_ktxTexture2_CompressBasis(TexturePtr, quality);
 
             if (result != KtxErrorCode.KTX_SUCCESS)
@@ -284,6 +316,16 @@ namespace RisKtx2
                 throw new Exception($"Failed to compress KTX texture with quality {quality}. Error code: {result}");
             }
         }
+
+        /// <summary>
+        /// Gets the number of mipmap levels.
+        /// </summary>
+        public uint NumLevels => ris_ktxTexture2_GetNumLevels(TexturePtr);
+
+        /// <summary>
+        /// Gets the Vulkan format of the texture.
+        /// </summary>
+        public VkFormat VkFormat => ris_ktxTexture2_GetVkFormat(TexturePtr);
 
         /// <inheritdoc/>
         public void Dispose()

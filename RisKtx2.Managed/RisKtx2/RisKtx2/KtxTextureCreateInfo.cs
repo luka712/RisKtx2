@@ -322,6 +322,11 @@ namespace RisKtx2
     [StructLayout(LayoutKind.Sequential)]
     public struct KtxTextureCreateInfo
     {
+        public KtxTextureCreateInfo()
+        {
+            NumLevels = 1;
+        }
+
         /// <summary>
         /// The width of the texture to be created.
         /// </summary>
@@ -336,5 +341,16 @@ namespace RisKtx2
         /// The format of the texture to be created, specified as a value from the <see cref="VkFormat"/> enumeration.
         /// </summary>
         public VkFormat VkFormat { get; set; }
+
+        /// <summary>
+        /// Number of mip levels in the texture.
+        /// Should be <c>1</c> if generateMipmaps is <c>true</c>. 
+        /// </summary>
+        public uint NumLevels { get; set; }
+
+        /// <summary>
+        /// Set to <c>true</c> if mipmaps should be generated for the texture when loading into a 3D API.
+        /// </summary>
+        public bool GenerateMipmaps { get; set; }
     }
 }
