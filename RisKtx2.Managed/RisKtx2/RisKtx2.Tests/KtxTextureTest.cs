@@ -165,7 +165,7 @@ namespace RisGameFramework.SpriteToolkit.Tests
                 // Compress to Basis Universal UASTC format
                 texture.CompressBasis(new KtxBasisParams
                 {
-                    UseUastc = true,
+                    Uastc = true,
                 });
                 
                 // Write compressed texture with mips to file

@@ -61,7 +61,8 @@ namespace RisKtx2
             NativeResolver.Setup();
             TexturePtr = IntPtr.Zero;
             uint storageAllocValue = (uint)storageAllocation;
-            KtxErrorCode errorCode = ris_ktxTexture2_Create(createInfo, storageAllocValue, out IntPtr texture);
+            var nativeCreateInfo = createInfo.ToNative();
+            KtxErrorCode errorCode = ris_ktxTexture2_Create(nativeCreateInfo, storageAllocValue, out IntPtr texture);
             if (errorCode != KtxErrorCode.KTX_SUCCESS)
             {
                 throw new Exception($"Failed to create KTX texture. Error code: {errorCode}");

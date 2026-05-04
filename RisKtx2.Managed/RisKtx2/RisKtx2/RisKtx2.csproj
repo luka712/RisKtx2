@@ -21,13 +21,4 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup>
-    <!-- Pack into NuGet package with correct runtime structure -->
-    <None Include="runtimes\win-x64\native\fmtd.dll" Pack="true" PackagePath="runtimes\win-x64\native\" />
-    <None Include="runtimes\win-x64\native\ris_ktx2.dll" Pack="true" PackagePath="runtimes\win-x64\native\" />
-    <None Include="runtimes\win-x64\native\spdlogd.dll" Pack="true" PackagePath="runtimes\win-x64\native\" />
-    <None Include="runtimes\win-x64\native\ktx.dll" Pack="true" PackagePath="runtimes\win-x64\native\" />
-    <None Include="runtimes\win-x64\native\zstd.dll" Pack="true" PackagePath="runtimes\win-x64\native\" />
-  </ItemGroup>
-
 </Project>

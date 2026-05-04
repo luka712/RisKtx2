@@ -19,35 +19,18 @@ API_EXPORT KTX_error_code ris_ktxTexture2_Create(
 	ktxTextureCreateInfo ktxCreateInfo = {};
 	ktxCreateInfo.baseWidth = createInfo->baseWidth;
 	ktxCreateInfo.baseHeight = createInfo->baseHeight;
-	ktxCreateInfo.baseDepth = 1;
-	ktxCreateInfo.numDimensions = 2;
+	ktxCreateInfo.baseDepth = createInfo->baseDepth;
+	ktxCreateInfo.numDimensions = createInfo->numDimensions;
 	ktxCreateInfo.numLevels = createInfo->numLevels;
-	ktxCreateInfo.numLayers = 1;
-	ktxCreateInfo.numFaces = 1;
-	ktxCreateInfo.isArray = KTX_FALSE;
+	ktxCreateInfo.numLayers = createInfo->numLayers;
+	ktxCreateInfo.numFaces = createInfo->numFaces;
+	ktxCreateInfo.isArray = createInfo->isArray ? KTX_TRUE : KTX_FALSE;
 	ktxCreateInfo.generateMipmaps = createInfo->generateMipmaps;
 	ktxCreateInfo.vkFormat = createInfo->vkFormat;
-	ktxCreateInfo.pDfd = nullptr;
-	ktxCreateInfo.glInternalformat = 0;
-
-	if (!_isLoggerInitialized) {
-		auto logger = spdlog::basic_logger_mt("global_logger", "ris_ktx2.log");
-		// Set as global default
-		spdlog::set_default_logger(logger);
-		spdlog::set_level(spdlog::level::debug);
-		_isLoggerInitialized = true;
-	}
+	ktxCreateInfo.pDfd = nullptr; // Used only if vkFormat is VK_FORMAT_UNDEFINED, which we don't support for creation at this time.
+	ktxCreateInfo.glInternalformat = 0; // Ignored when creating a ktxTexture2, as it's used by ktxTexture1, but must be set to 0 to avoid validation errors in ktxTexture2_Create().
 
 	ktxTextureCreateStorageEnum storageAllocationEnum = static_cast<ktxTextureCreateStorageEnum>(storageAllocation);
-
-#if DEBUG
-	spdlog::debug("ris_ktxTexture2_Create: baseWidth={}, baseHeight={}, vkFormat={}, storageAllocation={}",
-		std::to_string(ktxCreateInfo.baseWidth),
-		std::to_string(ktxCreateInfo.baseHeight),
-		std::to_string(ktxCreateInfo.vkFormat),
-		std::to_string(storageAllocationEnum));
-#endif 
-
 	return ktxTexture2_Create(&ktxCreateInfo, storageAllocationEnum, outTexture);
 }
 
@@ -130,11 +113,15 @@ API_EXPORT KTX_error_code ris_ktxTexture2_CompressBasisEx(
 	ktxParams.structSize = sizeof(ktxBasisParams);
 	ktxParams.uastc = params->uastc;
 	ktxParams.qualityLevel = params->qualityLevel;
-	ktxParams.compressionLevel = params->compressionLevel;
+	ktxParams.compressionLevel = params->etc1sCompressionLevel;
 	ktxParams.uastcFlags = KTX_PACK_UASTC_LEVEL_DEFAULT;
-	ktxParams.threadCount = 0;
-	ktxParams.uastcRDO = KTX_FALSE;
-
+	ktxParams.threadCount = params->threadCount;
+	ktxParams.uastcRDO = params->uastcRDO;
+	ktxParams.uastcRDOQualityScalar = params->uastcRDOQualityScalar;
+	for (int i = 0; i < 4; ++i) {
+		ktxParams.inputSwizzle[i] = params->inputSwizzle[i];
+	}
+	ktxParams.verbose = params->verbose;
 
 	return ktxTexture2_CompressBasisEx(tex, &ktxParams);
 }

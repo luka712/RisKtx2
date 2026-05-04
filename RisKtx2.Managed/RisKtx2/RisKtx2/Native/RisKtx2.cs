@@ -21,7 +21,7 @@ namespace RisKtx2.Native
         /// <returns>The error code indicating success or failure.</returns>
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
         internal static extern KtxErrorCode ris_ktxTexture2_Create(
-            in KtxTextureCreateInfo createInfo,
+            in ris_ktxTextureCreateInfo createInfo,
             uint storageAllocation,
             out IntPtr texture);
 

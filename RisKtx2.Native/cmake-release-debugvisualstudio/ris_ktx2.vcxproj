@@ -1,0 +1,409 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{34D4D0A2-FDC0-3210-8C15-A4B05B2B30EC}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <VcpkgEnabled>false</VcpkgEnabled>
+    <WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>ris_ktx2</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+    <UseDebugLibraries>true</UseDebugLibraries>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+    <UseDebugLibraries>false</UseDebugLibraries>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+    <UseDebugLibraries>false</UseDebugLibraries>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+    <UseDebugLibraries>false</UseDebugLibraries>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="do_not_import_user.props" Condition="exists('do_not_import_user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ris_ktx2.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ris_ktx2</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ris_ktx2.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ris_ktx2</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">ris_ktx2.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">ris_ktx2</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">ris_ktx2.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">ris_ktx2</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\include;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\vendor;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "D:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-release-debugvisualstudio/vcpkg_installed/x64-windows/include" /utf-8</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4251;4275</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;_DEBUG;DEBUG;BASISU_NO_ITERATOR_DEBUG_LEVEL;KTX_FEATURE_KTX1;KTX_FEATURE_KTX2;KTX_FEATURE_WRITE;SPDLOG_SHARED_LIB;SPDLOG_COMPILED_LIB;SPDLOG_FMT_EXTERNAL;FMT_SHARED;CMAKE_INTDIR="Debug";ris_ktx2_EXPORTS</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;DEBUG;BASISU_NO_ITERATOR_DEBUG_LEVEL;KTX_FEATURE_KTX1;KTX_FEATURE_KTX2;KTX_FEATURE_WRITE;SPDLOG_SHARED_LIB;SPDLOG_COMPILED_LIB;SPDLOG_FMT_EXTERNAL;FMT_SHARED;CMAKE_INTDIR=\"Debug\";ris_ktx2_EXPORTS</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\include;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\vendor;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\include;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\vendor;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file D:/_Windows/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-release-debugvisualstudio/Debug/ris_ktx2.dll -installedDir D:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-release-debugvisualstudio/vcpkg_installed/x64-windows/debug/bin -OutVariable out
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>vcpkg_installed\x64-windows\debug\lib\ktx.lib;vcpkg_installed\x64-windows\debug\lib\spdlogd.lib;vcpkg_installed\x64-windows\lib\vulkan-1.lib;vcpkg_installed\x64-windows\debug\lib\fmtd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-release-debugvisualstudio/Debug/ris_ktx2.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-release-debugvisualstudio/Debug/ris_ktx2.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\include;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\vendor;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "D:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-release-debugvisualstudio/vcpkg_installed/x64-windows/include" /utf-8</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <DisableSpecificWarnings>4251;4275</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BASISU_NO_ITERATOR_DEBUG_LEVEL;KTX_FEATURE_KTX1;KTX_FEATURE_KTX2;KTX_FEATURE_WRITE;SPDLOG_SHARED_LIB;SPDLOG_COMPILED_LIB;SPDLOG_FMT_EXTERNAL;FMT_SHARED;CMAKE_INTDIR="Release";ris_ktx2_EXPORTS</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BASISU_NO_ITERATOR_DEBUG_LEVEL;KTX_FEATURE_KTX1;KTX_FEATURE_KTX2;KTX_FEATURE_WRITE;SPDLOG_SHARED_LIB;SPDLOG_COMPILED_LIB;SPDLOG_FMT_EXTERNAL;FMT_SHARED;CMAKE_INTDIR=\"Release\";ris_ktx2_EXPORTS</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\include;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\vendor;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\include;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\vendor;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file D:/_Windows/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-release-debugvisualstudio/Release/ris_ktx2.dll -installedDir D:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-release-debugvisualstudio/vcpkg_installed/x64-windows/bin -OutVariable out
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>vcpkg_installed\x64-windows\lib\ktx.lib;vcpkg_installed\x64-windows\lib\spdlog.lib;vcpkg_installed\x64-windows\lib\vulkan-1.lib;vcpkg_installed\x64-windows\lib\fmt.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-release-debugvisualstudio/Release/ris_ktx2.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-release-debugvisualstudio/Release/ris_ktx2.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\include;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\vendor;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "D:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-release-debugvisualstudio/vcpkg_installed/x64-windows/include" /utf-8</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <DisableSpecificWarnings>4251;4275</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BASISU_NO_ITERATOR_DEBUG_LEVEL;KTX_FEATURE_KTX1;KTX_FEATURE_KTX2;KTX_FEATURE_WRITE;SPDLOG_SHARED_LIB;SPDLOG_COMPILED_LIB;SPDLOG_FMT_EXTERNAL;FMT_SHARED;CMAKE_INTDIR="MinSizeRel";ris_ktx2_EXPORTS</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BASISU_NO_ITERATOR_DEBUG_LEVEL;KTX_FEATURE_KTX1;KTX_FEATURE_KTX2;KTX_FEATURE_WRITE;SPDLOG_SHARED_LIB;SPDLOG_COMPILED_LIB;SPDLOG_FMT_EXTERNAL;FMT_SHARED;CMAKE_INTDIR=\"MinSizeRel\";ris_ktx2_EXPORTS</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\include;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\vendor;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\include;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\vendor;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file D:/_Windows/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-release-debugvisualstudio/MinSizeRel/ris_ktx2.dll -installedDir D:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-release-debugvisualstudio/vcpkg_installed/x64-windows/bin -OutVariable out
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>vcpkg_installed\x64-windows\lib\ktx.lib;vcpkg_installed\x64-windows\lib\spdlog.lib;vcpkg_installed\x64-windows\lib\vulkan-1.lib;vcpkg_installed\x64-windows\lib\fmt.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-release-debugvisualstudio/MinSizeRel/ris_ktx2.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-release-debugvisualstudio/MinSizeRel/ris_ktx2.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\include;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\vendor;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "D:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-release-debugvisualstudio/vcpkg_installed/x64-windows/include" /utf-8</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4251;4275</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BASISU_NO_ITERATOR_DEBUG_LEVEL;KTX_FEATURE_KTX1;KTX_FEATURE_KTX2;KTX_FEATURE_WRITE;SPDLOG_SHARED_LIB;SPDLOG_COMPILED_LIB;SPDLOG_FMT_EXTERNAL;FMT_SHARED;CMAKE_INTDIR="RelWithDebInfo";ris_ktx2_EXPORTS</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BASISU_NO_ITERATOR_DEBUG_LEVEL;KTX_FEATURE_KTX1;KTX_FEATURE_KTX2;KTX_FEATURE_WRITE;SPDLOG_SHARED_LIB;SPDLOG_COMPILED_LIB;SPDLOG_FMT_EXTERNAL;FMT_SHARED;CMAKE_INTDIR=\"RelWithDebInfo\";ris_ktx2_EXPORTS</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\include;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\vendor;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\include;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\vendor;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file D:/_Windows/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-release-debugvisualstudio/RelWithDebInfo/ris_ktx2.dll -installedDir D:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-release-debugvisualstudio/vcpkg_installed/x64-windows/bin -OutVariable out
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>vcpkg_installed\x64-windows\lib\ktx.lib;vcpkg_installed\x64-windows\lib\spdlog.lib;vcpkg_installed\x64-windows\lib\vulkan-1.lib;vcpkg_installed\x64-windows\lib\fmt.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-release-debugvisualstudio/RelWithDebInfo/ris_ktx2.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-release-debugvisualstudio/RelWithDebInfo/ris_ktx2.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule D:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+D:\_Windows\CMake\bin\cmake.exe -SD:/Projects/RisLibraries/RisKtx2/RisKtx2.Native -BD:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-release-debugvisualstudio --check-stamp-file D:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-release-debugvisualstudio/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\CMakeFiles\3.31.1\CMakeCXXCompiler.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\CMakeFiles\3.31.1\CMakeRCCompiler.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\CMakeFiles\3.31.1\CMakeSystem.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\Catch2\Catch2Config.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\Catch2\Catch2ConfigVersion.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\Catch2\Catch2Targets-debug.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\Catch2\Catch2Targets-release.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\Catch2\Catch2Targets.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\fmt\fmt-config-version.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\fmt\fmt-config.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\fmt\fmt-targets-debug.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\fmt\fmt-targets-release.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\fmt\fmt-targets.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\ktx\KtxConfig.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\ktx\KtxConfigVersion.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\ktx\KtxTargets-debug.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\ktx\KtxTargets-release.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\ktx\KtxTargets.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\spdlog\spdlogConfig.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\spdlog\spdlogConfigTargets-debug.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\spdlog\spdlogConfigTargets-release.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\spdlog\spdlogConfigTargets.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\spdlog\spdlogConfigVersion.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\zstd\zstdConfig.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\zstd\zstdConfigVersion.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\zstd\zstdTargets-debug.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\zstd\zstdTargets-release.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\zstd\zstdTargets.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake\CopyTestFiles.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake\VcpkgDependencies.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake\VcpkgTestDependencies.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\vcpkg-configuration.json;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\vcpkg.json;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeCXXCompiler.cmake.in;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeCXXCompilerABI.cpp;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeCXXInformation.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeCommonLanguageInclude.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeCompilerIdDetection.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeDependentOption.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeDetermineCXXCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeDetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeDetermineCompilerABI.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeDetermineCompilerId.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeDetermineCompilerSupport.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeDetermineRCCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeDetermineSystem.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeFindBinUtils.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeFindDependencyMacro.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeGenericSystem.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeInitializeConfigs.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeLanguageInformation.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeParseImplicitIncludeInfo.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeParseImplicitLinkInfo.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeParseLibraryArchitecture.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeRCCompiler.cmake.in;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeRCInformation.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeSystem.cmake.in;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeSystemSpecificInformation.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeSystemSpecificInitialize.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeTestCXXCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeTestCompilerCommon.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeTestRCCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CheckCXXSourceCompiles.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CheckIncludeFileCXX.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CheckLibraryExists.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\ADSP-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\ARMCC-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\ARMClang-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\AppleClang-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Borland-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\CMakeCommonCompilerMacros.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Clang-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Compaq-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Cray-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\CrayClang-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\FujitsuClang-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\GHS-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\GNU-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\HP-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\IAR-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\IBMClang-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Intel-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\IntelLLVM-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\LCC-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\MSVC-CXX.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\MSVC-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\MSVC.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\NVHPC-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\NVIDIA-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\OrangeC-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\PGI-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\PathScale-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\SCO-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\SunPro-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\TI-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\TIClang-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Tasking-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\VisualAge-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Watcom-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\XL-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\XLClang-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\zOS-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CompilerId\VS-10.vcxproj.in;D:\_Windows\CMake\share\cmake-3.31\Modules\FindPackageHandleStandardArgs.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\FindPackageMessage.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\FindThreads.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\FindVulkan.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Internal\CMakeCXXLinkerInformation.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Internal\CMakeCommonLinkerInformation.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Internal\CMakeDetermineLinkerId.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Internal\CheckSourceCompiles.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Internal\FeatureTesting.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Platform\Linker\Windows-MSVC-CXX.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Platform\Linker\Windows-MSVC.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Platform\Windows-Determine-CXX.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Platform\Windows-Initialize.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Platform\Windows-MSVC-CXX.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Platform\Windows-MSVC.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Platform\Windows.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Platform\WindowsPaths.cmake;D:\_Windows\vcpkg\scripts\buildsystems\vcpkg.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule D:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+D:\_Windows\CMake\bin\cmake.exe -SD:/Projects/RisLibraries/RisKtx2/RisKtx2.Native -BD:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-release-debugvisualstudio --check-stamp-file D:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-release-debugvisualstudio/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\CMakeFiles\3.31.1\CMakeCXXCompiler.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\CMakeFiles\3.31.1\CMakeRCCompiler.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\CMakeFiles\3.31.1\CMakeSystem.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\Catch2\Catch2Config.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\Catch2\Catch2ConfigVersion.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\Catch2\Catch2Targets-debug.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\Catch2\Catch2Targets-release.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\Catch2\Catch2Targets.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\fmt\fmt-config-version.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\fmt\fmt-config.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\fmt\fmt-targets-debug.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\fmt\fmt-targets-release.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\fmt\fmt-targets.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\ktx\KtxConfig.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\ktx\KtxConfigVersion.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\ktx\KtxTargets-debug.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\ktx\KtxTargets-release.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\ktx\KtxTargets.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\spdlog\spdlogConfig.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\spdlog\spdlogConfigTargets-debug.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\spdlog\spdlogConfigTargets-release.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\spdlog\spdlogConfigTargets.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\spdlog\spdlogConfigVersion.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\zstd\zstdConfig.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\zstd\zstdConfigVersion.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\zstd\zstdTargets-debug.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\zstd\zstdTargets-release.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\zstd\zstdTargets.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake\CopyTestFiles.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake\VcpkgDependencies.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake\VcpkgTestDependencies.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\vcpkg-configuration.json;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\vcpkg.json;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeCXXCompiler.cmake.in;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeCXXCompilerABI.cpp;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeCXXInformation.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeCommonLanguageInclude.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeCompilerIdDetection.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeDependentOption.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeDetermineCXXCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeDetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeDetermineCompilerABI.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeDetermineCompilerId.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeDetermineCompilerSupport.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeDetermineRCCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeDetermineSystem.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeFindBinUtils.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeFindDependencyMacro.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeGenericSystem.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeInitializeConfigs.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeLanguageInformation.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeParseImplicitIncludeInfo.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeParseImplicitLinkInfo.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeParseLibraryArchitecture.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeRCCompiler.cmake.in;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeRCInformation.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeSystem.cmake.in;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeSystemSpecificInformation.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeSystemSpecificInitialize.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeTestCXXCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeTestCompilerCommon.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeTestRCCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CheckCXXSourceCompiles.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CheckIncludeFileCXX.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CheckLibraryExists.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\ADSP-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\ARMCC-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\ARMClang-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\AppleClang-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Borland-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\CMakeCommonCompilerMacros.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Clang-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Compaq-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Cray-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\CrayClang-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\FujitsuClang-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\GHS-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\GNU-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\HP-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\IAR-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\IBMClang-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Intel-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\IntelLLVM-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\LCC-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\MSVC-CXX.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\MSVC-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\MSVC.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\NVHPC-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\NVIDIA-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\OrangeC-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\PGI-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\PathScale-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\SCO-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\SunPro-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\TI-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\TIClang-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Tasking-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\VisualAge-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Watcom-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\XL-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\XLClang-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\zOS-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CompilerId\VS-10.vcxproj.in;D:\_Windows\CMake\share\cmake-3.31\Modules\FindPackageHandleStandardArgs.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\FindPackageMessage.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\FindThreads.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\FindVulkan.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Internal\CMakeCXXLinkerInformation.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Internal\CMakeCommonLinkerInformation.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Internal\CMakeDetermineLinkerId.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Internal\CheckSourceCompiles.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Internal\FeatureTesting.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Platform\Linker\Windows-MSVC-CXX.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Platform\Linker\Windows-MSVC.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Platform\Windows-Determine-CXX.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Platform\Windows-Initialize.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Platform\Windows-MSVC-CXX.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Platform\Windows-MSVC.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Platform\Windows.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Platform\WindowsPaths.cmake;D:\_Windows\vcpkg\scripts\buildsystems\vcpkg.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule D:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+D:\_Windows\CMake\bin\cmake.exe -SD:/Projects/RisLibraries/RisKtx2/RisKtx2.Native -BD:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-release-debugvisualstudio --check-stamp-file D:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-release-debugvisualstudio/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\CMakeFiles\3.31.1\CMakeCXXCompiler.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\CMakeFiles\3.31.1\CMakeRCCompiler.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\CMakeFiles\3.31.1\CMakeSystem.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\Catch2\Catch2Config.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\Catch2\Catch2ConfigVersion.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\Catch2\Catch2Targets-debug.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\Catch2\Catch2Targets-release.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\Catch2\Catch2Targets.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\fmt\fmt-config-version.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\fmt\fmt-config.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\fmt\fmt-targets-debug.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\fmt\fmt-targets-release.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\fmt\fmt-targets.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\ktx\KtxConfig.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\ktx\KtxConfigVersion.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\ktx\KtxTargets-debug.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\ktx\KtxTargets-release.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\ktx\KtxTargets.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\spdlog\spdlogConfig.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\spdlog\spdlogConfigTargets-debug.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\spdlog\spdlogConfigTargets-release.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\spdlog\spdlogConfigTargets.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\spdlog\spdlogConfigVersion.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\zstd\zstdConfig.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\zstd\zstdConfigVersion.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\zstd\zstdTargets-debug.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\zstd\zstdTargets-release.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\zstd\zstdTargets.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake\CopyTestFiles.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake\VcpkgDependencies.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake\VcpkgTestDependencies.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\vcpkg-configuration.json;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\vcpkg.json;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeCXXCompiler.cmake.in;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeCXXCompilerABI.cpp;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeCXXInformation.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeCommonLanguageInclude.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeCompilerIdDetection.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeDependentOption.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeDetermineCXXCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeDetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeDetermineCompilerABI.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeDetermineCompilerId.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeDetermineCompilerSupport.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeDetermineRCCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeDetermineSystem.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeFindBinUtils.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeFindDependencyMacro.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeGenericSystem.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeInitializeConfigs.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeLanguageInformation.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeParseImplicitIncludeInfo.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeParseImplicitLinkInfo.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeParseLibraryArchitecture.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeRCCompiler.cmake.in;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeRCInformation.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeSystem.cmake.in;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeSystemSpecificInformation.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeSystemSpecificInitialize.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeTestCXXCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeTestCompilerCommon.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeTestRCCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CheckCXXSourceCompiles.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CheckIncludeFileCXX.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CheckLibraryExists.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\ADSP-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\ARMCC-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\ARMClang-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\AppleClang-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Borland-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\CMakeCommonCompilerMacros.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Clang-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Compaq-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Cray-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\CrayClang-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\FujitsuClang-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\GHS-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\GNU-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\HP-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\IAR-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\IBMClang-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Intel-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\IntelLLVM-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\LCC-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\MSVC-CXX.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\MSVC-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\MSVC.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\NVHPC-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\NVIDIA-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\OrangeC-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\PGI-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\PathScale-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\SCO-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\SunPro-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\TI-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\TIClang-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Tasking-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\VisualAge-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Watcom-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\XL-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\XLClang-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\zOS-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CompilerId\VS-10.vcxproj.in;D:\_Windows\CMake\share\cmake-3.31\Modules\FindPackageHandleStandardArgs.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\FindPackageMessage.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\FindThreads.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\FindVulkan.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Internal\CMakeCXXLinkerInformation.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Internal\CMakeCommonLinkerInformation.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Internal\CMakeDetermineLinkerId.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Internal\CheckSourceCompiles.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Internal\FeatureTesting.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Platform\Linker\Windows-MSVC-CXX.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Platform\Linker\Windows-MSVC.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Platform\Windows-Determine-CXX.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Platform\Windows-Initialize.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Platform\Windows-MSVC-CXX.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Platform\Windows-MSVC.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Platform\Windows.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Platform\WindowsPaths.cmake;D:\_Windows\vcpkg\scripts\buildsystems\vcpkg.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule D:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+D:\_Windows\CMake\bin\cmake.exe -SD:/Projects/RisLibraries/RisKtx2/RisKtx2.Native -BD:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-release-debugvisualstudio --check-stamp-file D:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-release-debugvisualstudio/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\CMakeFiles\3.31.1\CMakeCXXCompiler.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\CMakeFiles\3.31.1\CMakeRCCompiler.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\CMakeFiles\3.31.1\CMakeSystem.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\Catch2\Catch2Config.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\Catch2\Catch2ConfigVersion.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\Catch2\Catch2Targets-debug.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\Catch2\Catch2Targets-release.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\Catch2\Catch2Targets.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\fmt\fmt-config-version.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\fmt\fmt-config.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\fmt\fmt-targets-debug.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\fmt\fmt-targets-release.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\fmt\fmt-targets.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\ktx\KtxConfig.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\ktx\KtxConfigVersion.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\ktx\KtxTargets-debug.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\ktx\KtxTargets-release.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\ktx\KtxTargets.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\spdlog\spdlogConfig.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\spdlog\spdlogConfigTargets-debug.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\spdlog\spdlogConfigTargets-release.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\spdlog\spdlogConfigTargets.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\spdlog\spdlogConfigVersion.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\zstd\zstdConfig.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\zstd\zstdConfigVersion.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\zstd\zstdTargets-debug.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\zstd\zstdTargets-release.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\vcpkg_installed\x64-windows\share\zstd\zstdTargets.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake\CopyTestFiles.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake\VcpkgDependencies.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake\VcpkgTestDependencies.cmake;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\vcpkg-configuration.json;D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\vcpkg.json;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeCXXCompiler.cmake.in;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeCXXCompilerABI.cpp;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeCXXInformation.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeCommonLanguageInclude.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeCompilerIdDetection.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeDependentOption.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeDetermineCXXCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeDetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeDetermineCompilerABI.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeDetermineCompilerId.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeDetermineCompilerSupport.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeDetermineRCCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeDetermineSystem.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeFindBinUtils.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeFindDependencyMacro.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeGenericSystem.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeInitializeConfigs.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeLanguageInformation.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeParseImplicitIncludeInfo.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeParseImplicitLinkInfo.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeParseLibraryArchitecture.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeRCCompiler.cmake.in;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeRCInformation.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeSystem.cmake.in;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeSystemSpecificInformation.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeSystemSpecificInitialize.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeTestCXXCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeTestCompilerCommon.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CMakeTestRCCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CheckCXXSourceCompiles.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CheckIncludeFileCXX.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CheckLibraryExists.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\ADSP-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\ARMCC-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\ARMClang-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\AppleClang-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Borland-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\CMakeCommonCompilerMacros.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Clang-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Clang-DetermineCompilerInternal.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Compaq-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Cray-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\CrayClang-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Embarcadero-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Fujitsu-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\FujitsuClang-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\GHS-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\GNU-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\HP-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\IAR-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\IBMCPP-CXX-DetermineVersionInternal.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\IBMClang-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Intel-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\IntelLLVM-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\LCC-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\MSVC-CXX.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\MSVC-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\MSVC.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\NVHPC-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\NVIDIA-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\OpenWatcom-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\OrangeC-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\PGI-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\PathScale-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\SCO-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\SunPro-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\TI-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\TIClang-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Tasking-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\VisualAge-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\Watcom-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\XL-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\XLClang-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Compiler\zOS-CXX-DetermineCompiler.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\CompilerId\VS-10.vcxproj.in;D:\_Windows\CMake\share\cmake-3.31\Modules\FindPackageHandleStandardArgs.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\FindPackageMessage.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\FindThreads.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\FindVulkan.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Internal\CMakeCXXLinkerInformation.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Internal\CMakeCommonLinkerInformation.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Internal\CMakeDetermineLinkerId.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Internal\CheckSourceCompiles.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Internal\FeatureTesting.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Platform\Linker\Windows-MSVC-CXX.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Platform\Linker\Windows-MSVC.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Platform\Windows-Determine-CXX.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Platform\Windows-Initialize.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Platform\Windows-MSVC-CXX.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Platform\Windows-MSVC.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Platform\Windows.cmake;D:\_Windows\CMake\share\cmake-3.31\Modules\Platform\WindowsPaths.cmake;D:\_Windows\vcpkg\scripts\buildsystems\vcpkg.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\library.cpp" />
+    <ClCompile Include="D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\src\c_ktx.cpp" />
+    <ClCompile Include="D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\src\c_stb_image.cpp" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="D:\Projects\RisLibraries\RisKtx2\RisKtx2.Native\cmake-release-debugvisualstudio\ZERO_CHECK.vcxproj">
+      <Project>{457413B3-2C92-3A25-8615-18F28718301F}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
