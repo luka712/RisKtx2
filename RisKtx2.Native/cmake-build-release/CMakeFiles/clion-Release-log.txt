@@ -1,0 +1,62 @@
+/home/luka/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_MAKE_PROGRAM=/home/luka/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64/ninja -G Ninja -S /home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native -B /home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-build-release
+-- Running vcpkg install
+Detecting compiler hash for triplet x64-linux...
+Compiler found: /usr/bin/c++
+The following packages are already installed:
+    catch2:x64-linux@3.8.1 -- git+https://github.com/microsoft/vcpkg@663b04662ae30cc321b1b1a0c781c9f4a3d29b93
+  * fmt:x64-linux@11.0.2#1 -- git+https://github.com/microsoft/vcpkg@07a73a7565e5de9eb42e90c16c133bdfdfebbcda
+    ktx:x64-linux@4.3.2#2 -- git+https://github.com/microsoft/vcpkg@f01e4c72a8a43b4879f8e0bf4394cd516eaf4739
+    spdlog:x64-linux@1.15.3 -- git+https://github.com/microsoft/vcpkg@c2b47286b0759373acecdfaa3be4219711f6d059
+  * vcpkg-cmake:x64-linux@2024-04-23 -- git+https://github.com/microsoft/vcpkg@e74aa1e8f93278a8e71372f1fa08c3df420eb840
+  * vcpkg-cmake-config:x64-linux@2024-05-23 -- git+https://github.com/microsoft/vcpkg@97a63e4bc1a17422ffe4eff71da53b4b561a7841
+    vulkan:x64-linux@2023-12-17 -- git+https://github.com/microsoft/vcpkg@3e8d64ec799440b97c7151f97dd00a53e8e1b5ea
+  * vulkan-headers:x64-linux@1.4.304.1#1 -- git+https://github.com/microsoft/vcpkg@fcdf63adddcd20343e1847def6d582642dc88bb9
+  * vulkan-loader:x64-linux@1.4.304.1 -- git+https://github.com/microsoft/vcpkg@289901bb5f8c0556eff1349905adefde912ee81d
+  * zstd:x64-linux@1.5.7 -- git+https://github.com/microsoft/vcpkg@31b7320fab13790c6861cb3c2d50dc8f60ca3602
+catch2 provides CMake targets:
+
+  # this is heuristically generated, and may not be correct
+  find_package(Catch2 CONFIG REQUIRED)
+  target_link_libraries(main PRIVATE Catch2::Catch2 Catch2::Catch2WithMain)
+
+catch2 provides pkg-config modules:
+
+  # A modern, C++-native test framework for C++14 and above (links in default main)
+  catch2-with-main
+
+  # A modern, C++-native, test framework for C++14 and above
+  catch2
+
+ktx provides CMake targets:
+
+  # this is heuristically generated, and may not be correct
+  find_package(Ktx CONFIG REQUIRED)
+  target_link_libraries(main PRIVATE KTX::ktx KTX::astcenc-avx2-static)
+
+The package spdlog provides CMake targets:
+
+    find_package(spdlog CONFIG REQUIRED)
+    target_link_libraries(main PRIVATE spdlog::spdlog)
+
+    # Or use the header-only version
+    find_package(spdlog CONFIG REQUIRED)
+    target_link_libraries(main PRIVATE spdlog::spdlog_header_only)
+
+vulkan is compatible with built-in CMake targets:
+
+    # https://cmake.org/cmake/help/latest/module/FindVulkan.html
+    find_package(Vulkan REQUIRED)
+    target_link_libraries(main PRIVATE Vulkan::Vulkan)
+
+All requested installations completed successfully in: 94.1 us
+-- Running vcpkg install - done
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found Vulkan: /home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-build-release/vcpkg_installed/x64-linux/lib/libvulkan.so (found version "1.4.304")  missing components: glslc glslangValidator
+-- Configuring done (1.1s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-build-release

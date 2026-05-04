@@ -1,0 +1,50 @@
+[
+{
+  "directory": "/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-build-release",
+  "command": "/usr/bin/c++ -DKHRONOS_STATIC -DKTX_FEATURE_KTX1 -DKTX_FEATURE_KTX2 -DKTX_FEATURE_WRITE -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -Dris_ktx2_EXPORTS -I/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/include -I/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/vendor -isystem /home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-build-release/vcpkg_installed/x64-linux/include -O3 -DNDEBUG -std=gnu++20 -fPIC -fdiagnostics-color=always -o CMakeFiles/ris_ktx2.dir/library.cpp.o -c /home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/library.cpp",
+  "file": "/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/library.cpp",
+  "output": "CMakeFiles/ris_ktx2.dir/library.cpp.o"
+},
+{
+  "directory": "/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-build-release",
+  "command": "/usr/bin/c++ -DKHRONOS_STATIC -DKTX_FEATURE_KTX1 -DKTX_FEATURE_KTX2 -DKTX_FEATURE_WRITE -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -Dris_ktx2_EXPORTS -I/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/include -I/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/vendor -isystem /home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-build-release/vcpkg_installed/x64-linux/include -O3 -DNDEBUG -std=gnu++20 -fPIC -fdiagnostics-color=always -o CMakeFiles/ris_ktx2.dir/src/c_ktx.cpp.o -c /home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/src/c_ktx.cpp",
+  "file": "/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/src/c_ktx.cpp",
+  "output": "CMakeFiles/ris_ktx2.dir/src/c_ktx.cpp.o"
+},
+{
+  "directory": "/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-build-release",
+  "command": "/usr/bin/c++ -DKHRONOS_STATIC -DKTX_FEATURE_KTX1 -DKTX_FEATURE_KTX2 -DKTX_FEATURE_WRITE -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -Dris_ktx2_EXPORTS -I/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/include -I/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/vendor -isystem /home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-build-release/vcpkg_installed/x64-linux/include -O3 -DNDEBUG -std=gnu++20 -fPIC -fdiagnostics-color=always -o CMakeFiles/ris_ktx2.dir/src/c_stb_image.cpp.o -c /home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/src/c_stb_image.cpp",
+  "file": "/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/src/c_stb_image.cpp",
+  "output": "CMakeFiles/ris_ktx2.dir/src/c_stb_image.cpp.o"
+},
+{
+  "directory": "/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-build-release",
+  "command": "/usr/bin/c++ -DKHRONOS_STATIC -DKTX_FEATURE_KTX1 -DKTX_FEATURE_KTX2 -DKTX_FEATURE_WRITE -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/include -I/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/vendor -isystem /home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-build-release/vcpkg_installed/x64-linux/include -O3 -DNDEBUG -std=gnu++20 -fdiagnostics-color=always -o CMakeFiles/ris_ktx2_tests.dir/src/c_ktx.cpp.o -c /home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/src/c_ktx.cpp",
+  "file": "/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/src/c_ktx.cpp",
+  "output": "CMakeFiles/ris_ktx2_tests.dir/src/c_ktx.cpp.o"
+},
+{
+  "directory": "/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-build-release",
+  "command": "/usr/bin/c++ -DKHRONOS_STATIC -DKTX_FEATURE_KTX1 -DKTX_FEATURE_KTX2 -DKTX_FEATURE_WRITE -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/include -I/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/vendor -isystem /home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-build-release/vcpkg_installed/x64-linux/include -O3 -DNDEBUG -std=gnu++20 -fdiagnostics-color=always -o CMakeFiles/ris_ktx2_tests.dir/src/c_stb_image.cpp.o -c /home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/src/c_stb_image.cpp",
+  "file": "/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/src/c_stb_image.cpp",
+  "output": "CMakeFiles/ris_ktx2_tests.dir/src/c_stb_image.cpp.o"
+},
+{
+  "directory": "/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-build-release",
+  "command": "/usr/bin/c++ -DKHRONOS_STATIC -DKTX_FEATURE_KTX1 -DKTX_FEATURE_KTX2 -DKTX_FEATURE_WRITE -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/include -I/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/vendor -isystem /home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-build-release/vcpkg_installed/x64-linux/include -O3 -DNDEBUG -std=gnu++20 -fdiagnostics-color=always -o CMakeFiles/ris_ktx2_tests.dir/tests/c_ktx_tests.cpp.o -c /home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/tests/c_ktx_tests.cpp",
+  "file": "/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/tests/c_ktx_tests.cpp",
+  "output": "CMakeFiles/ris_ktx2_tests.dir/tests/c_ktx_tests.cpp.o"
+},
+{
+  "directory": "/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-build-release",
+  "command": "/usr/bin/c++ -DKHRONOS_STATIC -DKTX_FEATURE_KTX1 -DKTX_FEATURE_KTX2 -DKTX_FEATURE_WRITE -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/include -I/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/vendor -isystem /home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-build-release/vcpkg_installed/x64-linux/include -O3 -DNDEBUG -std=gnu++20 -fdiagnostics-color=always -o CMakeFiles/ris_ktx2_tests.dir/tests/c_ktx_universal_basis_tests.cpp.o -c /home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/tests/c_ktx_universal_basis_tests.cpp",
+  "file": "/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/tests/c_ktx_universal_basis_tests.cpp",
+  "output": "CMakeFiles/ris_ktx2_tests.dir/tests/c_ktx_universal_basis_tests.cpp.o"
+},
+{
+  "directory": "/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-build-release",
+  "command": "/usr/bin/c++ -DKHRONOS_STATIC -DKTX_FEATURE_KTX1 -DKTX_FEATURE_KTX2 -DKTX_FEATURE_WRITE -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/include -I/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/vendor -isystem /home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-build-release/vcpkg_installed/x64-linux/include -O3 -DNDEBUG -std=gnu++20 -fdiagnostics-color=always -o CMakeFiles/ris_ktx2_tests.dir/tests/test_utilities.cpp.o -c /home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/tests/test_utilities.cpp",
+  "file": "/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/tests/test_utilities.cpp",
+  "output": "CMakeFiles/ris_ktx2_tests.dir/tests/test_utilities.cpp.o"
+}
+]

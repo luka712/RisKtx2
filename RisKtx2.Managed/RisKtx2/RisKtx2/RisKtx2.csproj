@@ -19,6 +19,9 @@
     <None Update="runtimes\win-x64\native\*.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="runtimes\linux-x64\native\libris_ktx2.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

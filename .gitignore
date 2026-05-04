@@ -427,3 +427,8 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+RisKtx2.Native/cmake-build-debug
+RisKtx2.Native/cmake-build-release
+RisKtx2.Native/cmake-release-visualstudio
+RisKtx2.Native/cmake-debug-visualstudio

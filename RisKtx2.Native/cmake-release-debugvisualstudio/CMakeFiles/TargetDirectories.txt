@@ -1,4 +1,0 @@
-D:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-release-debugvisualstudio/CMakeFiles/ris_ktx2.dir
-D:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-release-debugvisualstudio/CMakeFiles/ris_ktx2_tests.dir
-D:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-release-debugvisualstudio/CMakeFiles/ALL_BUILD.dir
-D:/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-release-debugvisualstudio/CMakeFiles/ZERO_CHECK.dir

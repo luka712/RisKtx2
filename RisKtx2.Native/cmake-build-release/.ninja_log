@@ -1,0 +1,11 @@
+# ninja log v6
+2	2859	1777913688848275125	CMakeFiles/ris_ktx2_tests.dir/src/c_stb_image.cpp.o	7373b8b4a5cf130f
+1	1129	1777913688847275131	CMakeFiles/ris_ktx2_tests.dir/src/c_ktx.cpp.o	9c31ce2f99ddd3f8
+2	25	1777913688849678067	CMakeFiles/ris_ktx2_tests.dir/tests/test_utilities.cpp.o	67759f189eb0af01
+2	1027	1777913688849553023	CMakeFiles/ris_ktx2_tests.dir/tests/c_ktx_universal_basis_tests.cpp.o	3ad2d39265c7d85d
+1	15	1777913684431301874	CMakeFiles/ris_ktx2.dir/library.cpp.o	b01e9b82130ba756
+1	1191	1777913684432868305	CMakeFiles/ris_ktx2.dir/src/c_ktx.cpp.o	d1bc979bdd0c6810
+2859	2958	1777913691705258166	ris_ktx2_tests	194bc8c4df478a79
+2	2983	1777913684433018355	CMakeFiles/ris_ktx2.dir/src/c_stb_image.cpp.o	91bb21434edf57ad
+2	1083	1777913688849351286	CMakeFiles/ris_ktx2_tests.dir/tests/c_ktx_tests.cpp.o	3167f3e4e89bc493
+2	86	1777913688849884052	libris_ktx2.so	90003162057d3f2c

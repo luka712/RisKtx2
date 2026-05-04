@@ -1,0 +1,69 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-release-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.30"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"name" : "release",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "ris_ktx2",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ris_ktx2::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ris_ktx2-release-bea42c6f2b07553e2fb8.json",
+					"name" : "ris_ktx2",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ris_ktx2_tests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ris_ktx2_tests-release-da5226857fc5e2d28fb9.json",
+					"name" : "ris_ktx2_tests",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-build-release",
+		"source" : "/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}

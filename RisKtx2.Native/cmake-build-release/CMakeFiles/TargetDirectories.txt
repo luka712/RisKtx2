@@ -1,0 +1,4 @@
+/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-build-release/CMakeFiles/ris_ktx2.dir
+/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-build-release/CMakeFiles/ris_ktx2_tests.dir
+/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-build-release/CMakeFiles/edit_cache.dir
+/home/luka/Desktop/Projects/RisLibraries/RisKtx2/RisKtx2.Native/cmake-build-release/CMakeFiles/rebuild_cache.dir
