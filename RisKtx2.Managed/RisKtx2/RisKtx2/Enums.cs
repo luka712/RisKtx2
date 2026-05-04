@@ -7,15 +7,16 @@
     public enum KtxErrorCode : int
     {
         /// <summary>
-        /// Operation was successful.
+        /// The operation was successful.
         /// </summary>
         KTX_SUCCESS = 0,
         KTX_FILE_DATA_ERROR,     /*!< The data in the file is inconsistent with the spec. */
         KTX_FILE_ISPIPE,         /*!< The file is a pipe or named pipe. */
+        
         /// <summary>
         /// The target file could not be opened.
         /// </summary>
-        FILE_OPEN_FAILED,
+        KTX_FILE_OPEN_FAILED,
         KTX_FILE_OVERFLOW,       /*!< The operation would exceed the max file size. */
         KTX_FILE_READ_ERROR,     /*!< An error occurred while reading from the file. */
         KTX_FILE_SEEK_ERROR,     /*!< An error occurred while seeking in the file. */

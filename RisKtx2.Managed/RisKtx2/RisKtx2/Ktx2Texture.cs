@@ -1,6 +1,5 @@
 ﻿using RisKtx2.Native;
 using static RisKtx2.Native.RisKtx2;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace RisKtx2
 {
@@ -35,7 +34,7 @@ namespace RisKtx2
             TexturePtr = IntPtr.Zero;
 
             KtxErrorCode errorCode = ris_ktxTexture2_CreateFromNamedFile(_filePath, createFlags, out IntPtr texture);
-            if (errorCode == KtxErrorCode.FILE_OPEN_FAILED)
+            if (errorCode == KtxErrorCode.KTX_FILE_OPEN_FAILED)
             {
                 throw new FileNotFoundException($"The specified KTX file '{_filePath}' could not be found.");
             }

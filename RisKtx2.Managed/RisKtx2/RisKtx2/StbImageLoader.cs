@@ -99,7 +99,6 @@ namespace RisKtx2
 
             if (channels == 4)
             {
-                // Add alpha channel
                 byte[] swizzledData = new byte[width * height * 4];
 
                 int channelIndex0 = 0;
@@ -125,6 +124,36 @@ namespace RisKtx2
                     swizzledData[i * 4 + channelIndex1] = data[i * 4 + 1]; // G
                     swizzledData[i * 4 + channelIndex2] = data[i * 4 + 2]; // B
                     swizzledData[i * 4 + channelIndex3] = data[i * 4 + 3]; // B
+                }
+                return swizzledData;
+            }
+            else if (channels == 3)
+            {
+                byte[] swizzledData = new byte[width * height * 4];
+
+                int channelIndex0 = 0;
+                int channelIndex1 = 1;
+                int channelIndex2 = 2;
+                int channelIndex3 = 3;
+                
+                if (desiredFormat == VkFormat.B8G8R8A8_UNORM)
+                {
+                    channelIndex0 = 2; // R
+                    channelIndex1 = 1; // G
+                    channelIndex2 = 0; // B
+                    channelIndex3 = 3; // A
+                }
+                else if(desiredFormat !=  VkFormat.R8G8B8A8_UNORM) // The default format is R8G8B8A8_UNORM, so if not in that throw.
+                {
+                    throw new NotImplementedException($"Swizzling from 3 channels to {desiredFormat} is not implemented.");
+                }
+
+                for (int i = 0; i < width * height; i++)
+                {
+                    swizzledData[i * 4 + channelIndex0] = data[i * 3 + 0]; // R
+                    swizzledData[i * 4 + channelIndex1] = data[i * 3 + 1]; // G
+                    swizzledData[i * 4 + channelIndex2] = data[i * 3 + 2]; // B
+                    swizzledData[i * 4 + channelIndex3] = 255;
                 }
                 return swizzledData;
             }
