@@ -1,5 +1,5 @@
 
-#include "c_stb_image.h"	
+#include "ris_stb_image.h"	
 #include "test_utilities.hpp"
 
 

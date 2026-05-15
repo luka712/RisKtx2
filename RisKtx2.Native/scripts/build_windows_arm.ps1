@@ -1,13 +1,16 @@
 $env:VCPKG_ROOT = "D:\_Windows\vcpkg"
 $env:PATH = "$env:VCPKG_ROOT;$env:PATH"
 
+$BuildType = if ($args[0]) { $args[0] } else { "Release" }
+$BuildDir = "cmake-build-$($BuildType.ToLower())-arm64"
+
 vcpkg install --triplet arm64-windows
 
-cmake -B cmake-release-debugvisualstudio -S . `
+cmake -B "$BuildDir" -S . `
   -G "Visual Studio 17 2022" `
-  -DCMAKE_TOOLCHAIN_FILE=D:/_Windows/vcpkg/scripts/buildsystems/vcpkg.cmake `
-  -DCMAKE_BUILD_TYPE=Release `
+  -DCMAKE_BUILD_TYPE="$BuildType" `
   -A ARM64 `
-  -DVCPKG_TARGET_TRIPLET=arm64-windows
+  -DVCPKG_TARGET_TRIPLET=arm64-windows `
+  -DCMAKE_TOOLCHAIN_FILE="$env:VCPKG_ROOT\scripts\buildsystems\vcpkg.cmake"
 
-cmake --build cmake-release-debugvisualstudio --config Release
+cmake --build "$BuildDir" --config "$BuildType"
