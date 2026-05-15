@@ -30,6 +30,14 @@ API_EXPORT KTX_error_code ris_ktxTexture2_Create(
 	ktxCreateInfo.pDfd = nullptr; // Used only if vkFormat is VK_FORMAT_UNDEFINED, which we don't support for creation at this time.
 	ktxCreateInfo.glInternalformat = 0; // Ignored when creating a ktxTexture2, as it's used by ktxTexture1, but must be set to 0 to avoid validation errors in ktxTexture2_Create().
 
+	if (!_isLoggerInitialized) {
+		const auto logger = spdlog::basic_logger_mt("global_logger", "ris_ktx2.log");
+		// Set as global default
+		spdlog::set_default_logger(logger);
+		spdlog::set_level(spdlog::level::debug);
+		_isLoggerInitialized = true;
+	}
+
 	ktxTextureCreateStorageEnum storageAllocationEnum = static_cast<ktxTextureCreateStorageEnum>(storageAllocation);
 	return ktxTexture2_Create(&ktxCreateInfo, storageAllocationEnum, outTexture);
 }
@@ -40,7 +48,7 @@ API_EXPORT KTX_error_code ris_ktxTexture2_CreateFromNamedFile(
 	ktxTexture2** outTexture)
 {
 	if (!_isLoggerInitialized) {
-		auto logger = spdlog::basic_logger_mt("global_logger", "ris_ktx2.log");
+		const auto logger = spdlog::basic_logger_mt("global_logger", "ris_ktx2.log");
 		// Set as global default
 		spdlog::set_default_logger(logger);
 		spdlog::set_level(spdlog::level::debug);
@@ -122,6 +130,11 @@ API_EXPORT KTX_error_code ris_ktxTexture2_CompressBasisEx(
 		ktxParams.inputSwizzle[i] = params->inputSwizzle[i];
 	}
 	ktxParams.verbose = params->verbose;
+
+	if (_isLoggerInitialized) {
+		spdlog::debug("ris_ktxTexture2_CompressBasisEx: uastc={}, quality={}, compression={}, uastcRDO={}, uastcRDOQualityScalar={}, inputSwizzle={}, verbose={}",
+			params->uastc, std::to_string(params->qualityLevel), std::to_string(params->etc1sCompressionLevel), params->uastcRDO, std::to_string(params->uastcRDOQualityScalar), params->inputSwizzle, params->verbose);
+	}
 
 	return ktxTexture2_CompressBasisEx(tex, &ktxParams);
 }

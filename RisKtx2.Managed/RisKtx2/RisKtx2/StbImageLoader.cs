@@ -17,30 +17,29 @@ namespace RisKtx2
             Native.NativeResolver.Setup();
         }
 
-        /// <summary>
-        /// Loads an image from the specified file path using stb_image and returns a pointer to the stbi_load result,
-        /// along with the image's width, height, and number of channels.
-        /// </summary>
-        /// <param name="filePath"></param>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        /// <param name="channels"></param>
-        /// <param name="desiredChannels"></param>
-        /// <returns></returns>
-        /// <exception cref="Exception"></exception>
-        public byte[] Load(string filePath, out int width, out int height, out int channels, int desiredChannels = 0, VkFormat desiredFormat = VkFormat.R8G8B8A8_UNORM)
+   
+        public byte[] Load(string filePath, out int width, out int height, out int channels, int desiredChannels = 0,
+            VkFormat desiredFormat = VkFormat.R8G8B8A8_UNORM, int align = -1)
         {
-            IntPtr dataPtr = Native.NativeStbImage.ris_stbi_load(filePath, out width, out height, out channels, desiredChannels);
+            IntPtr dataPtr =
+                Native.NativeStbImage.ris_stbi_load(filePath, out width, out height, out channels, desiredChannels);
             if (dataPtr == IntPtr.Zero)
             {
                 throw new Exception($"Failed to load image: {filePath}");
             }
+
             try
             {
                 int dataSize = width * height * channels;
                 byte[] data = new byte[dataSize];
                 Marshal.Copy(dataPtr, data, 0, dataSize);
                 data = Swizzle(data, width, height, channels, desiredFormat);
+
+                if (align > 0)
+                {
+                    data = Align(data, width, height, channels, align, out width, out height);
+                }
+                
                 return data;
             }
             finally
@@ -50,13 +49,14 @@ namespace RisKtx2
         }
 
 
-        public StbImage Load(string filePath, int desiredChannels = 0, VkFormat desiredFormat = VkFormat.R8G8B8A8_UNORM)
+        public StbImage Load(string filePath, int desiredChannels = 0, VkFormat desiredFormat = VkFormat.R8G8B8A8_UNORM, int align = -1)
         {
-            var bytes = Load(filePath, out int width, out int height, out int channels, desiredChannels, desiredFormat);
+            var bytes = Load(filePath, out int width, out int height, out int channels, desiredChannels, desiredFormat, align);
             return new StbImage(width, height, channels, bytes, desiredFormat);
         }
 
-        public byte[] Resize(byte[] data, int inputWidth, int inputHeight, int channels, int outputWidth, int outputHeight)
+        public byte[] Resize(byte[] data, int inputWidth, int inputHeight, int channels, int outputWidth,
+            int outputHeight)
         {
             var strideInBytes = inputWidth * channels;
             var outputStrideInBytes = outputHeight * channels;
@@ -64,12 +64,12 @@ namespace RisKtx2
 
             unsafe
             {
-                fixed (byte* dataPtr = data) 
+                fixed (byte* dataPtr = data)
                 fixed (byte* outputPtr = outputBytes)
                 {
                     int result = Native.NativeStbImage.ris_stbir_resize_uint8(
-                        (nint) dataPtr, inputWidth, inputHeight, strideInBytes,
-                        (nint) outputPtr, outputWidth, outputHeight, outputStrideInBytes,
+                        (nint)dataPtr, inputWidth, inputHeight, strideInBytes,
+                        (nint)outputPtr, outputWidth, outputHeight, outputStrideInBytes,
                         channels);
                     if (result == 0)
                     {
@@ -77,16 +77,65 @@ namespace RisKtx2
                     }
 
                     var dataSize = outputWidth * outputHeight * channels;
-                    Marshal.Copy((nint) outputPtr, outputBytes, 0, dataSize);
+                    Marshal.Copy((nint)outputPtr, outputBytes, 0, dataSize);
                 }
             }
 
             return outputBytes;
         }
 
+        
+        public byte[] Align(byte[] data, int inputWidth, int inputHeight, int channels, int alignment,
+            out int outputWidth, out int outputHeight)
+        {
+            outputWidth = (inputWidth + alignment - 1) & ~(alignment - 1);
+            outputHeight = (inputHeight + alignment - 1) / alignment * alignment;
+
+            // Go through each row and align the data
+            var outputBytes = new byte[outputWidth * outputHeight * channels];
+            for (int y = 0; y < inputHeight; y++)
+            {
+                int rowSourceStartIndex = y * inputWidth * channels;
+                int rowDestStartIndex = y * outputWidth * channels;
+                Array.Copy(data, rowSourceStartIndex, outputBytes, rowDestStartIndex, inputWidth * channels);
+
+                int copySize = outputWidth - inputWidth;
+                int lastSourceIndex = rowSourceStartIndex + (inputWidth - 1) * channels;
+                int destIndex = rowDestStartIndex + inputWidth * channels;
+                for (int i = 0; i < copySize; i++)
+                {
+                    for (int b = 0; b < channels; b++)
+                    {
+                        outputBytes[destIndex + i + b] = data[lastSourceIndex + b];
+                    }
+
+                    destIndex += channels;
+                }
+            }
+
+            // Repeat the last row to fill the rest with the output height
+            for (int y = inputHeight; y < outputHeight; y++)
+            {
+                int lastFilledRowIndex = (inputHeight - 1) * outputWidth * channels;
+                int destIndex = y * outputWidth * channels;
+                Array.Copy(outputBytes, lastFilledRowIndex, outputBytes, destIndex, outputWidth * channels);
+            }
+            
+            return outputBytes;
+        }
+
+
+        public StbImage Align(StbImage image, int alignment)
+        {
+            byte[] alignedBytes = Align(image.Bytes, image.Width, image.Height, image.Channels, alignment,
+                out int outputWidth, out int outputHeight);
+            return new StbImage(outputWidth, outputHeight, image.Channels, alignedBytes, image.Format);
+        }
+
         public StbImage Resize(StbImage image, int outputWidth, int outputHeight)
         {
-            byte[] resizedBytes = Resize(image.Bytes, image.Width, image.Height, image.Channels, outputWidth, outputHeight);
+            byte[] resizedBytes = Resize(image.Bytes, image.Width, image.Height, image.Channels, outputWidth,
+                outputHeight);
             return new StbImage(outputWidth, outputHeight, image.Channels, resizedBytes, image.Format);
         }
 
@@ -115,7 +164,8 @@ namespace RisKtx2
                 }
                 else
                 {
-                    throw new NotImplementedException($"Swizzling from 4 channels to {desiredFormat} is not implemented.");
+                    throw new NotImplementedException(
+                        $"Swizzling from 4 channels to {desiredFormat} is not implemented.");
                 }
 
                 for (int i = 0; i < width * height; i++)
@@ -125,6 +175,7 @@ namespace RisKtx2
                     swizzledData[i * 4 + channelIndex2] = data[i * 4 + 2]; // B
                     swizzledData[i * 4 + channelIndex3] = data[i * 4 + 3]; // B
                 }
+
                 return swizzledData;
             }
             else if (channels == 3)
@@ -135,7 +186,7 @@ namespace RisKtx2
                 int channelIndex1 = 1;
                 int channelIndex2 = 2;
                 int channelIndex3 = 3;
-                
+
                 if (desiredFormat == VkFormat.B8G8R8A8_UNORM)
                 {
                     channelIndex0 = 2; // R
@@ -143,9 +194,12 @@ namespace RisKtx2
                     channelIndex2 = 0; // B
                     channelIndex3 = 3; // A
                 }
-                else if(desiredFormat !=  VkFormat.R8G8B8A8_UNORM) // The default format is R8G8B8A8_UNORM, so if not in that throw.
+                else if
+                    (desiredFormat !=
+                     VkFormat.R8G8B8A8_UNORM) // The default format is R8G8B8A8_UNORM, so if not in that throw.
                 {
-                    throw new NotImplementedException($"Swizzling from 3 channels to {desiredFormat} is not implemented.");
+                    throw new NotImplementedException(
+                        $"Swizzling from 3 channels to {desiredFormat} is not implemented.");
                 }
 
                 for (int i = 0; i < width * height; i++)
@@ -155,6 +209,7 @@ namespace RisKtx2
                     swizzledData[i * 4 + channelIndex2] = data[i * 3 + 2]; // B
                     swizzledData[i * 4 + channelIndex3] = 255;
                 }
+
                 return swizzledData;
             }
 

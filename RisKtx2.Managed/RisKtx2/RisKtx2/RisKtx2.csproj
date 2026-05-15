@@ -9,7 +9,7 @@
     
     <!-- Optional: NuGet package metadata -->
     <PackageId>RisKtx2</PackageId>
-    <Version>0.1.4</Version>
+    <Version>0.1.8</Version>
     <Authors>Erkapic Luka</Authors>
     <Description>KTX2 texture loading library</Description>
   </PropertyGroup>

@@ -1,3 +1,5 @@
+extern "C" {
+
 //! Structure for passing extended parameters to ktxTexture2_CompressBasisEx().
 //! If you only want default values, use ktxTexture2_CompressBasis().Here, at a minimum you must initialize the structure as follows :
 //! <code>
@@ -5,7 +7,8 @@
 //! ris_ktxBasisParams.etc1sCompressionLevel = KTX_ETC1S_DEFAULT_COMPRESSION_LEVEL;
 //! </code>
 //! compressionLevel has to be explicitly set because 0 is a valid compressionLevel but is not the default used by the BasisU encoder when no value is set.Only the other settings that are to be non - default must be non - zero.
-struct ris_ktxBasisParams
+#pragma once
+typedef struct ris_ktxBasisParams
 {
 	//! ETC1S compression effort level. 
 	//! Range is [0,6]. Higher values are much slower, but give slightly higher quality. 
@@ -32,12 +35,6 @@ struct ris_ktxBasisParams
 	//! Number of threads used for compression. Default is 1. 
 	uint32_t threadCount;
 
-	//! A swizzle to apply before encoding.
-	//! It must match the regular expression /^[rgba01]{4}$/.
-	//! If both this and preSwizzle are specified ktxTexture_CompressBasisEx will raise KTX_INVALID_OPERATION.
-	//! Usable with both ETC1S and UASTC. 
-	char inputSwizzle[4];
-
 	//! True to use UASTC base, false to use ETC1S base. 
 	bool uastc;
 
@@ -55,6 +52,12 @@ struct ris_ktxBasisParams
 	//! Not recommended for GUI apps. 
 	bool verbose;
 
+	//! A swizzle to apply before encoding.
+	//! It must match the regular expression /^[rgba01]{4}$/.
+	//! If both this and preSwizzle are specified ktxTexture_CompressBasisEx will raise KTX_INVALID_OPERATION.
+	//! Usable with both ETC1S and UASTC.
+	char inputSwizzle[4];
+
 	ris_ktxBasisParams()
 	{
 		etc1sCompressionLevel = 0;
@@ -71,3 +74,4 @@ struct ris_ktxBasisParams
 		}
 	}
 };
+	}

@@ -302,7 +302,7 @@ namespace RisKtx2
         /// Based on KTX-Software / libktx API:
         /// https://github.khronos.org/KTX-Software/libktx/group__writer.html#ga405c44d6daf8ddf83dc805810bf4f989
         /// </remarks>
-        public void CompressBasis(uint quality)
+        public void CompressBasis(uint quality = 0)
         {
             if (quality > 255)
             {

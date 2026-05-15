@@ -20,11 +20,20 @@ namespace RisKtx2
         }
 
         /// <summary>
-        /// Gets or sets the compression level used for data processing.
+        /// ETC1S compression effort level.
+        /// Range is [0,6].
+        /// Higher values are much slower but give slightly higher quality.
+        /// <para/>
+        /// Higher levels are intended for video.
+        /// <para/>
+        /// This parameter controls numerous internal encoding speed vs. compression efficiency/performance tradeoffs.
+        /// Note this is NOT the same as the ETC1S quality level, and most users shouldn't change this.
+        /// There is no default.
+        /// Callers must explicitly set this value.
+        /// Callers can use KTX_ETC1S_DEFAULT_COMPRESSION_LEVEL as a default value. Currently, this is <c>2</c>.
         /// </summary>
         /// <remarks>
-        /// Valid values range from 0 (no compression) to 6 (maximum compression).
-        /// Higher values may result in better compression ratios at the cost of increased processing time.
+        /// This controls how hard the encoder works to optimize compression.
         /// </remarks>
         public uint ETC1SCompressionLevel
         {
@@ -48,6 +57,9 @@ namespace RisKtx2
         /// and selectorRDOThreshold for the target quality level. 
         /// Setting these parameters overrides the values determined by QualityLevel,
         /// which defaults to 128 if neither it nor both of maxEndpoints and maxSelectors have been set.
+        /// </remarks>
+        /// <remarks>
+        /// This controls the visual quality target of ETC1S encoding.
         /// </remarks>
         public uint QualityLevel
         {
@@ -93,7 +105,7 @@ namespace RisKtx2
         /// UASTC RDO quality scalar (lambda).
         /// Lower values yield higher quality/larger LZ compressed files, higher values yield lower quality/smaller LZ compressed files. 
         /// A good range to try is [.2,4].
-        /// Full range is [.001,50.0].
+        /// The full range is [.001,50.0].
         /// Default is 1.0. 
         /// </summary>
         public float UastcRDOQualityScalar { get; set; }
@@ -112,9 +124,9 @@ namespace RisKtx2
         {
             var risKtxBasisParams = new ris_ktxBasisParams()
             {
-                etc1sCompressionLevel = ETC1SCompressionLevel,
-                qualityLevel = QualityLevel,
                 uastc = Uastc,
+                qualityLevel = QualityLevel,
+                etc1sCompressionLevel = ETC1SCompressionLevel,
                 normalMap = NormalMap,
                 threadCount = ThreadCount,
                 uastcRDO = UastcRDO,
@@ -130,10 +142,10 @@ namespace RisKtx2
                     throw new ArgumentException("InputSwizzle must be an array of 4 characters.", nameof(InputSwizzle));
                 }
 
-                risKtxBasisParams.inputSwizzleR = InputSwizzle[0];
-                risKtxBasisParams.inputSwizzleG = InputSwizzle[1];
-                risKtxBasisParams.inputSwizzleB = InputSwizzle[2];
-                risKtxBasisParams.inputSwizzleA = InputSwizzle[3];
+                risKtxBasisParams.inputSwizzleR = (byte) InputSwizzle[0];
+                risKtxBasisParams.inputSwizzleG = (byte) InputSwizzle[1];
+                risKtxBasisParams.inputSwizzleB = (byte) InputSwizzle[2];
+                risKtxBasisParams.inputSwizzleA = (byte) InputSwizzle[3];
             }
 
             return risKtxBasisParams;
@@ -143,7 +155,7 @@ namespace RisKtx2
     /// <summary>
     /// Structure for passing extended parameters to ktxTexture2_CompressBasisEx().
     /// </summary>
-    [StructLayout(LayoutKind.Sequential, Pack = 1)]
+    [StructLayout(LayoutKind.Sequential)]
     internal unsafe struct ris_ktxBasisParams
     {
         public ris_ktxBasisParams()
@@ -156,24 +168,35 @@ namespace RisKtx2
             uastcRDO = false;
             uastcRDOQualityScalar = 0.0f;
             verbose = false;
-            inputSwizzleR = '\0';
-            inputSwizzleG = '\0';
-            inputSwizzleB = '\0';
-            inputSwizzleA = '\0';
+            inputSwizzleR = 0;
+            inputSwizzleG = 0;
+            inputSwizzleB = 0;
+            inputSwizzleA = 0;
         }
 
-        internal uint etc1sCompressionLevel;
-        internal uint qualityLevel;
-        internal bool normalMap;
-        internal uint threadCount;
-        internal char inputSwizzleR;
-        internal char inputSwizzleG;
-        internal char inputSwizzleB;
-        internal char inputSwizzleA;
-        internal bool uastc;
-        internal bool uastcRDO;
-        internal float uastcRDOQualityScalar;
-        internal bool verbose;
+        public uint etc1sCompressionLevel;
+        public uint qualityLevel;
+
+        [MarshalAs(UnmanagedType.I1)]
+        public bool normalMap;
+
+        public uint threadCount;
+
+        [MarshalAs(UnmanagedType.I1)]
+        public bool uastc;
+
+        [MarshalAs(UnmanagedType.I1)]
+        public bool uastcRDO;
+
+        public float uastcRDOQualityScalar;
+
+        [MarshalAs(UnmanagedType.I1)]
+        public bool verbose;
+
+        public byte inputSwizzleR;
+        public byte inputSwizzleG;
+        public byte inputSwizzleB;
+        public byte inputSwizzleA;
     }
 
 }

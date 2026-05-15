@@ -1,5 +1,4 @@
-﻿using RisKtx2;
-namespace RisGameFramework.SpriteToolkit.Tests
+﻿namespace RisKtx2.Tests
 {
     /// <summary>
     /// The KTX texture tests.
@@ -14,7 +13,7 @@ namespace RisGameFramework.SpriteToolkit.Tests
         private const string TEST_OUTPUT_KTX2 = "Data/test_output.ktx2";
         private const string TEST_COMPRESSED_KTX2 = "Data/test_compressed.ktx2";
         private const string TEST_COMPRESSED_WITH_MIPS_KTX2 = "Data/test_compressed_with_mips.ktx2";
-        
+
         private const uint MIP_LEVEL_0 = 0;
         private const uint LAYER_0 = 0;
         private const uint FACE_SLICE_0 = 0;
@@ -53,7 +52,7 @@ namespace RisGameFramework.SpriteToolkit.Tests
         public void Test_Confirm_KTX_Texture_Dimensions()
         {
             using var texture = new Ktx2Texture(TEST_KTX_BASIS_UASTC);
-            
+
             Assert.That(texture.Width, Is.GreaterThan(0), "Texture width should be greater than 0.");
             Assert.That(texture.Height, Is.GreaterThan(0), "Texture height should be greater than 0.");
         }
@@ -69,7 +68,7 @@ namespace RisGameFramework.SpriteToolkit.Tests
         public void Test_Create_And_Fill_Texture()
         {
             using var texture = CreateAndFillTexture();
-            
+
             var textureData = texture.GetTextureData();
             Assert.That(textureData, Is.Not.EqualTo(IntPtr.Zero), "Texture data pointer should not be null.");
         }
@@ -83,13 +82,13 @@ namespace RisGameFramework.SpriteToolkit.Tests
             try
             {
                 using var texture = CreateAndFillTexture();
-                
-                // Write texture to file
+
+                // Write texture to a file
                 texture.WriteToNamedFile(TEST_OUTPUT_KTX2);
-                
-                // Verify file was created
+
+                // Verify a file was created
                 Assert.That(File.Exists(TEST_OUTPUT_KTX2), "Output KTX file should exist after writing.");
-                
+
                 var fileInfo = new FileInfo(TEST_OUTPUT_KTX2);
                 Assert.That(fileInfo.Length, Is.GreaterThan(0), "Output KTX file should have a size greater than 0.");
             }
@@ -110,7 +109,7 @@ namespace RisGameFramework.SpriteToolkit.Tests
         public void Test_GetImageOffset()
         {
             using var texture = CreateAndFillTexture();
-            
+
             var offset = texture.GetImageOffset(MIP_LEVEL_0, LAYER_0, FACE_SLICE_0);
             Assert.That(offset, Is.GreaterThanOrEqualTo(0), "Image offset should be greater than or equal to 0.");
         }
@@ -128,18 +127,19 @@ namespace RisGameFramework.SpriteToolkit.Tests
             try
             {
                 using var texture = CreateAndFillTexture();
-                
+
                 // Compress to Basis Universal format with maximum quality
                 texture.CompressBasis(MAX_BASIS_QUALITY);
-                
-                // Write compressed texture to file
+
+                // Write compressed texture to a file
                 texture.WriteToNamedFile(TEST_COMPRESSED_KTX2);
-                
-                // Verify file was created
+
+                // Verify a file was created
                 Assert.That(File.Exists(TEST_COMPRESSED_KTX2), "Compressed KTX file should exist after writing.");
-                
+
                 var fileInfo = new FileInfo(TEST_COMPRESSED_KTX2);
-                Assert.That(fileInfo.Length, Is.GreaterThan(0), "Compressed KTX file should have a size greater than 0.");
+                Assert.That(fileInfo.Length, Is.GreaterThan(0),
+                    "Compressed KTX file should have a size greater than 0.");
             }
             finally
             {
@@ -157,36 +157,27 @@ namespace RisGameFramework.SpriteToolkit.Tests
         [Test]
         public void Test_CompressBasisWithMipLevels()
         {
-            try
+            // Create texture with mip levels
+            using var texture = CreateTextureWithMipLevels(out int expectedMipLevels);
+
+            // Compress to Basis Universal UASTC format
+            texture.CompressBasis(new KtxBasisParams
             {
-                // Create texture with mip levels
-                using var texture = CreateTextureWithMipLevels(out int expectedMipLevels);
-                
-                // Compress to Basis Universal UASTC format
-                texture.CompressBasis(new KtxBasisParams
-                {
-                    Uastc = true,
-                });
-                
-                // Write compressed texture with mips to file
-                texture.WriteToNamedFile(TEST_COMPRESSED_WITH_MIPS_KTX2);
-                
-                // Verify file was created
-                Assert.That(File.Exists(TEST_COMPRESSED_WITH_MIPS_KTX2), "Compressed KTX file with mips should exist after writing.");
-                
-                // Load the compressed texture and verify mip levels are preserved
-                using var loadedTexture = new Ktx2Texture(TEST_COMPRESSED_WITH_MIPS_KTX2);
-                Assert.That(loadedTexture.NumLevels, Is.EqualTo(expectedMipLevels), 
-                    $"Loaded texture should have {expectedMipLevels} mip levels.");
-            }
-            finally
-            {
-                // Cleanup: Delete test output file
-                if (File.Exists(TEST_COMPRESSED_WITH_MIPS_KTX2))
-                {
-                    File.Delete(TEST_COMPRESSED_WITH_MIPS_KTX2);
-                }
-            }
+                Uastc = true,
+                QualityLevel = MAX_BASIS_QUALITY,
+            });
+
+            // Write compressed texture with mips to a file
+            texture.WriteToNamedFile(TEST_COMPRESSED_WITH_MIPS_KTX2);
+
+            // Verify a file was created
+            Assert.That(File.Exists(TEST_COMPRESSED_WITH_MIPS_KTX2),
+                "Compressed KTX file with mips should exist after writing.");
+
+            // Load the compressed texture and verify mip levels are preserved
+            using var loadedTexture = new Ktx2Texture(TEST_COMPRESSED_WITH_MIPS_KTX2);
+            Assert.That(loadedTexture.NumLevels, Is.EqualTo(expectedMipLevels),
+                $"Loaded texture should have {expectedMipLevels} mip levels.");
         }
 
         #endregion
@@ -201,7 +192,7 @@ namespace RisGameFramework.SpriteToolkit.Tests
         {
             // Load image data from PNG file using STB
             StbImageLoader loader = new();
-            var bytes = loader.Load(TEXT_PNG, out int width, out int height, out int channels);
+            var bytes = loader.Load(TEXT_PNG, out int width, out int height, out int channels, align: 4);
 
             // Create KTX texture with appropriate format
             var createInfo = new KtxTextureCreateInfo
@@ -212,10 +203,10 @@ namespace RisGameFramework.SpriteToolkit.Tests
             };
 
             var texture = new Ktx2Texture(createInfo, KtxTextureCreateStorage.ALLOC_STORAGE);
-            
+
             // Set image data for base mip level
             texture.SetImageFromMemory(MIP_LEVEL_0, LAYER_0, FACE_SLICE_0, bytes, (uint)bytes.Length);
-            
+
             return texture;
         }
 
@@ -227,18 +218,18 @@ namespace RisGameFramework.SpriteToolkit.Tests
         private Ktx2Texture CreateTextureWithMipLevels(out int mipLevelCount)
         {
             StbImageLoader loader = new();
-            var level0Image = loader.Load(TEXT_PNG);
+            var level0Image = loader.Load(TEXT_PNG, align: 4);
 
             // Generate mip chain by repeatedly halving dimensions
             var width = level0Image.Width;
             var height = level0Image.Height;
             List<StbImage> mipLevels = [level0Image];
-            
+
             while (width > 1 && height > 1)
             {
                 width /= 2;
                 height /= 2;
-                
+
                 var lastMip = mipLevels.Last();
                 var currentMip = loader.Resize(lastMip, width, height);
                 mipLevels.Add(currentMip);
@@ -256,7 +247,7 @@ namespace RisGameFramework.SpriteToolkit.Tests
             };
 
             var texture = new Ktx2Texture(createInfo, KtxTextureCreateStorage.ALLOC_STORAGE);
-            
+
             // Set image data for each mip level
             for (int i = 0; i < mipLevels.Count; i++)
             {

@@ -4,6 +4,8 @@
 #include "stb_image/stb_image.h"
 
 #define STB_IMAGE_RESIZE_IMPLEMENTATION
+#include <stdexcept>
+
 #include "stb_image/stb_image_resize.h"
 
 unsigned char* ris_stbi_load(const char* filename, int* width, int* height, int* channels, int desired_channels)
