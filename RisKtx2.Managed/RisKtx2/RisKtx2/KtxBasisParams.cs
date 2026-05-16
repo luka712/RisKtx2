@@ -124,14 +124,14 @@ namespace RisKtx2
         {
             var risKtxBasisParams = new ris_ktxBasisParams()
             {
-                uastc = Uastc,
+                uastc = Uastc ? 1u : 0,
                 qualityLevel = QualityLevel,
                 etc1sCompressionLevel = ETC1SCompressionLevel,
-                normalMap = NormalMap,
+                normalMap = NormalMap ? 1u : 0,
                 threadCount = ThreadCount,
-                uastcRDO = UastcRDO,
+                uastcRDO = UastcRDO ? 1u : 0,
                 uastcRDOQualityScalar = UastcRDOQualityScalar,
-                verbose = Verbose
+                verbose = Verbose ? 1u : 0,
             };
 
             // Handle the InputSwizzle array. We need to pin it in memory to get a stable pointer for the native code.
@@ -162,12 +162,12 @@ namespace RisKtx2
         {
             etc1sCompressionLevel = 0;
             qualityLevel = 0;
-            normalMap = false;
+            normalMap = 0;
             threadCount = 0;
-            uastc = false;
-            uastcRDO = false;
+            uastc = 0;
+            uastcRDO = 0;
             uastcRDOQualityScalar = 0.0f;
-            verbose = false;
+            verbose = 0;
             inputSwizzleR = 0;
             inputSwizzleG = 0;
             inputSwizzleB = 0;
@@ -176,23 +176,12 @@ namespace RisKtx2
 
         public uint etc1sCompressionLevel;
         public uint qualityLevel;
-
-        [MarshalAs(UnmanagedType.I1)]
-        public bool normalMap;
-
+        public uint normalMap;
         public uint threadCount;
-
-        [MarshalAs(UnmanagedType.I1)]
-        public bool uastc;
-
-        [MarshalAs(UnmanagedType.I1)]
-        public bool uastcRDO;
-
+        public uint uastc;
+        public uint uastcRDO;
         public float uastcRDOQualityScalar;
-
-        [MarshalAs(UnmanagedType.I1)]
-        public bool verbose;
-
+        public uint verbose;
         public byte inputSwizzleR;
         public byte inputSwizzleG;
         public byte inputSwizzleB;
