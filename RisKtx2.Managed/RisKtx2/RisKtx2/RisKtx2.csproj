@@ -5,24 +5,29 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    
+    <!-- Optional: NuGet package metadata -->
+    <PackageId>RisKtx2</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>Erkapic Luka</Authors>
+    <Description>KTX2 texture loading library</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Update="runtimes\win-x64\native\fmtd.dll">
+    <!-- Copy to output directory for local development -->
+    <None Update="runtimes\win-x64\native\*.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="runtimes\win-x64\native\ris_ktx2.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="runtimes\win-x64\native\spdlogd.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="runtimes\win-x64\native\ktx.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="runtimes\win-x64\native\zstd.dll">
+    <None Update="runtimes\linux-x64\native\libris_ktx2.so">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+
+  <ItemGroup>
+  <None Include="runtimes\**\*"
+        Pack="true"
+        PackagePath="runtimes\" />
+</ItemGroup>
 
 </Project>

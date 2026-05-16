@@ -57,7 +57,7 @@
         /// High quality block compression for color textures.
         /// Supports alpha channel and is suitable for diffuse/physically based textures.
         /// </summary>
-        BC7_RGBA = 6,
+        KTX_TTF_BC7_RGBA = 6,
         /*!< RGB or RGBA mode 5 for ETC1S, modes 1, 2, 3, 4, 5, 6, 7 for
              UASTC. */
 

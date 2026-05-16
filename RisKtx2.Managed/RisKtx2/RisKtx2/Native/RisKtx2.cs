@@ -21,7 +21,7 @@ namespace RisKtx2.Native
         /// <returns>The error code indicating success or failure.</returns>
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
         internal static extern KtxErrorCode ris_ktxTexture2_Create(
-            in KtxTextureCreateInfo createInfo,
+            in ris_ktxTextureCreateInfo createInfo,
             uint storageAllocation,
             out IntPtr texture);
 
@@ -78,6 +78,11 @@ namespace RisKtx2.Native
             IntPtr texture,
             IntPtr basisParams);
 
+        [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern KtxErrorCode ris_ktxTexture2_CompressBasis(
+            IntPtr texture,
+            uint quality);
+
         #endregion
 
         #region Data Access
@@ -112,7 +117,7 @@ namespace RisKtx2.Native
         /// <summary>
         /// Sets the image data for a specific level, layer, and face/slice of the texture.
         /// </summary>
-        /// <param name="This">The texture pointer.</param>
+        /// <param name="ktx2TexturePtr">The texture pointer.</param>
         /// <param name="level">The mipmap level.</param>
         /// <param name="layer">The array layer.</param>
         /// <param name="faceSlice">The face or slice index.</param>
@@ -121,7 +126,7 @@ namespace RisKtx2.Native
         /// <returns>The error code indicating success or failure.</returns>
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
         internal static extern KtxErrorCode ris_ktxTexture2_SetImageFromMemory(
-            IntPtr This,
+            IntPtr ktx2TexturePtr,
             uint level,
             uint layer,
             uint faceSlice,
@@ -131,7 +136,7 @@ namespace RisKtx2.Native
         /// <summary>
         /// Gets the offset of the image data for a specific level, layer, and face/slice.
         /// </summary>
-        /// <param name="texture">The texture pointer.</param>
+        /// <param name="ktx2TexturePtr">The texture pointer.</param>
         /// <param name="level">The mipmap level.</param>
         /// <param name="layer">The array layer.</param>
         /// <param name="faceSlice">The face or slice index.</param>
@@ -139,7 +144,7 @@ namespace RisKtx2.Native
         /// <returns>The error code indicating success or failure.</returns>
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
         internal static extern KtxErrorCode ris_ktxTexture2_GetImageOffset(
-            IntPtr texture,
+            IntPtr ktx2TexturePtr,
             uint level,
             uint layer,
             uint faceSlice,
@@ -213,6 +218,26 @@ namespace RisKtx2.Native
         /// <param name="texture">The texture pointer to destroy.</param>
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void ris_ktxTexture2_Destroy(IntPtr texture);
+
+        #endregion
+
+        #region Querying
+
+        /// <summary>
+        /// Gets the number of mipmap levels in the texture.
+        /// </summary>
+        /// <param name="texture">The texture pointer.</param>
+        /// <returns>The number of mipmap levels.</returns>
+        [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern uint ris_ktxTexture2_GetNumLevels(IntPtr texture);
+
+        /// <summary>
+        /// Gets the Vulkan format of the texture.
+        /// </summary>
+        /// <param name="texture">The texture pointer.</param>
+        /// <returns>The Vulkan format.</returns>
+        [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern VkFormat ris_ktxTexture2_GetVkFormat(IntPtr texture);
 
         #endregion
     }

@@ -1,5 +1,5 @@
 
-find_package(ktx CONFIG REQUIRED)
+find_package(Ktx CONFIG REQUIRED)
 find_package(spdlog CONFIG REQUIRED)
 find_package(Vulkan REQUIRED)
 
