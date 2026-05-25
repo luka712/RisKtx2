@@ -432,3 +432,5 @@ RisKtx2.Native/cmake-build-debug
 RisKtx2.Native/cmake-build-release
 RisKtx2.Native/cmake-release-visualstudio
 RisKtx2.Native/cmake-debug-visualstudio
+RisKtx2.Native/cmake-build-debug-win64
+RisKtx2.Native/cmake-build-release-win64
