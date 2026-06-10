@@ -168,45 +168,62 @@ void main()
 
             // Determine target format and transcode if needed
             InternalFormat internalFormat;
+            TextureFormatInfo formatInfo;
 
             if (ktx2Texture.NeedsTranscoding)
             {
                 if (_supportsBC7)
                 {
-                    ktx2Texture.TranscodeBasis(KtxTranscodeFormat.KTX_TTF_BC7_RGBA);
-                    internalFormat = InternalFormat.CompressedRgbaBptcUnormArb;
+                    ktx2Texture.TranscodeBasis(KtxTranscodeFormat.BC7_RGBA);
+                    internalFormat = InternalFormat.CompressedRgbaBptcUnorm;
+                    formatInfo = ktx2Texture.GetTextureFormatInfo(KtxTranscodeFormat.BC7_RGBA);
                 }
                 else if (_supportsASTC)
                 {
-                    ktx2Texture.TranscodeBasis(KtxTranscodeFormat.KTX_TTF_ASTC_4x4_RGBA);
+                    ktx2Texture.TranscodeBasis(KtxTranscodeFormat.ASTC_4X4_RGBA);
                     internalFormat = InternalFormat.CompressedRgbaAstc4X4;
+                    formatInfo = ktx2Texture.GetTextureFormatInfo(KtxTranscodeFormat.ASTC_4X4_RGBA);
                 }
                 else if (_supportsETC2)
                 {
-                    ktx2Texture.TranscodeBasis(KtxTranscodeFormat.KTX_TTF_ETC2_RGBA);
+                    ktx2Texture.TranscodeBasis(KtxTranscodeFormat.ETC2_RGBA);
                     internalFormat = InternalFormat.CompressedRgba8Etc2Eac;
+                    formatInfo = ktx2Texture.GetTextureFormatInfo(KtxTranscodeFormat.ETC2_RGBA);
                 }
                 else if (_supportsS3TC)
                 {
                     // fallback for older desktop GPUs
-                    ktx2Texture.TranscodeBasis(KtxTranscodeFormat.KTX_TTF_BC3_RGBA);
+                    ktx2Texture.TranscodeBasis(KtxTranscodeFormat.BC3_RGBA);
                     internalFormat = InternalFormat.CompressedRgbaS3tcDxt5Ext;
+                    formatInfo = ktx2Texture.GetTextureFormatInfo(KtxTranscodeFormat.BC3_RGBA);
                 }
                 else
                 {
                     // 🚨 CRITICAL fallback
-                    ktx2Texture.TranscodeBasis(KtxTranscodeFormat.KTX_TTF_RGBA32);
+                    ktx2Texture.TranscodeBasis(KtxTranscodeFormat.RGBA32);
                     internalFormat = InternalFormat.Rgba8;
+                    formatInfo = ktx2Texture.GetTextureFormatInfo(KtxTranscodeFormat.RGBA32);
                 }
             }
             else
             {
                 // Texture is already in a GPU-friendly format, map VkFormat to OpenGL InternalFormat
                 internalFormat = MapVkFormatToGLInternalFormat(ktx2Texture);
+                formatInfo = ktx2Texture.GetTextureFormatInfo(ktx2Texture.VkFormat);
             }
 
             int handle = GL.GenTexture();
             GL.BindTexture(TextureTarget.Texture2D, handle);
+
+            var width = ktx2Texture.Width;
+            var height = ktx2Texture.Height;
+
+            if (formatInfo.BlockWidth > 1 || formatInfo.BlockHeight > 1)
+            {
+                // For block-compressed formats, dimensions must be aligned to block size
+                width = (width + formatInfo.BlockWidth - 1) / formatInfo.BlockWidth * formatInfo.BlockWidth;
+                height = (height + formatInfo.BlockHeight - 1) / formatInfo.BlockHeight * formatInfo.BlockHeight;
+            }
 
             // Upload all mip levels
             uint numLevels = ktx2Texture.NumLevels;
@@ -216,8 +233,8 @@ void main()
                 var size = ktx2Texture.GetImageSize(level);
 
                 // Calculate dimensions for this mip level
-                uint width = Math.Max(1, ktx2Texture.Width >> (int)level);
-                uint height = Math.Max(1, ktx2Texture.Height >> (int)level);
+                width = Math.Max(1, ktx2Texture.Width >> (int)level);
+                height = Math.Max(1, ktx2Texture.Height >> (int)level);
 
                 GL.CompressedTexImage2D(
                     TextureTarget.Texture2D,

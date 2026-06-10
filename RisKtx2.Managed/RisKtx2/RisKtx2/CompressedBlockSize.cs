@@ -35,7 +35,7 @@
         /// Size of a single block in bytes.
         /// For example, BC7 uses 16 bytes per 4x4 block.
         /// </summary>
-        public uint BlockSizeInBytes { get; }
+        public uint BytesPerBlock { get; }
 
         /// <summary>
         /// Creates a new <see cref="TextureFormatInfo"/> instance.
@@ -43,13 +43,13 @@
         /// <param name="blockWidth">Width of a block in pixels.</param>
         /// <param name="blockHeight">Height of a block in pixels.</param>
         /// <param name="blockDepth">Depth of a block in pixels.</param>
-        /// <param name="blockSizeInBytes">Size of a block in bytes.</param>
-        public TextureFormatInfo(uint blockWidth, uint blockHeight, uint blockDepth, uint blockSizeInBytes)
+        /// <param name="bytesPerBlock">Size of a block in bytes.</param>
+        public TextureFormatInfo(uint blockWidth, uint blockHeight, uint blockDepth, uint bytesPerBlock)
         {
             BlockWidth = blockWidth;
             BlockHeight = blockHeight;
             BlockDepth = blockDepth;
-            BlockSizeInBytes = blockSizeInBytes;
+            BytesPerBlock = bytesPerBlock;
         }
 
         /// <summary>
@@ -63,73 +63,90 @@
         }
 
         /// <summary>
-        /// Computes the number of rows per image for a given texture height.
+        /// Gets the number of block rows required to cover a height.
         /// </summary>
-        /// <param name="height">The height in pixels.</param>
-        /// <returns>Number of rows per image.</returns>
-        public uint RowsPerImage(uint height)
-        {
-            return (height + BlockHeight - 1) / BlockHeight;
-        }
-
-        /// <summary>
-        /// Computes the number of blocks per column for a given texture height.
-        /// </summary>
-        /// <param name="height">Texture height in pixels.</param>
-        /// <returns>Number of blocks required to cover the height.</returns>
         public uint GetBlocksPerColumn(uint height)
         {
             return (height + BlockHeight - 1) / BlockHeight;
         }
 
         /// <summary>
-        /// Computes the unaligned number of bytes per row.
+        /// Gets the number of block slices required to cover a depth.
         /// </summary>
-        /// <param name="width">Texture width in pixels.</param>
-        /// <returns>Bytes per row without alignment padding.</returns>
-        public uint GetBytesPerRow(uint width)
+        public uint GetBlocksPerSlice(uint depth)
         {
-            return GetBlocksPerRow(width) * BlockSizeInBytes;
+            return (depth + BlockDepth - 1) / BlockDepth;
         }
 
         /// <summary>
-        /// Computes the WebGPU-aligned number of bytes per row.
+        /// Gets the unaligned number of bytes in a row of blocks.
+        /// </summary>
+        public ulong GetBytesPerRow(uint width)
+        {
+            return (ulong)GetBlocksPerRow(width) * BytesPerBlock;
+        }
+
+        /// <summary>
+        /// Gets the WebGPU-aligned bytes-per-row value.
         /// WebGPU requires bytesPerRow to be a multiple of 256.
         /// </summary>
-        /// <param name="width">Texture width in pixels.</param>
-        /// <returns>Aligned bytes per row.</returns>
-        public uint GetAlignedBytesPerRow(uint width)
+        public ulong GetAlignedBytesPerRow(uint width)
         {
-            uint bytesPerRow = GetBytesPerRow(width);
-            return (bytesPerRow + 255) & ~255u;
+            ulong bytesPerRow = GetBytesPerRow(width);
+            return (bytesPerRow + 255) & ~255UL;
         }
 
         /// <summary>
-        /// Computes the total data size in bytes for a 2D texture.
+        /// Computes the size in bytes of a 2D texture level.
         /// </summary>
-        /// <param name="width">Texture width in pixels.</param>
-        /// <param name="height">Texture height in pixels.</param>
-        /// <returns>Total size in bytes.</returns>
-        public uint GetDataSize(uint width, uint height)
+        public ulong GetDataSize(uint width, uint height)
         {
-            uint blocksX = GetBlocksPerRow(width);
-            uint blocksY = GetBlocksPerColumn(height);
-            return blocksX * blocksY * BlockSizeInBytes;
+            ulong blocksX = GetBlocksPerRow(width);
+            ulong blocksY = GetBlocksPerColumn(height);
+
+            return blocksX * blocksY * BytesPerBlock;
+        }
+
+        /// <summary>
+        /// Computes the size in bytes of a 3D texture level.
+        /// </summary>
+        public ulong GetDataSize(uint width, uint height, uint depth)
+        {
+            ulong blocksX = GetBlocksPerRow(width);
+            ulong blocksY = GetBlocksPerColumn(height);
+            ulong blocksZ = GetBlocksPerSlice(depth);
+
+            return blocksX * blocksY * blocksZ * BytesPerBlock;
         }
 
         /// <summary>
         /// Predefined format info for BC7 compressed textures.
         /// </summary>
-        /// <remarks>
-        /// BC7 uses 4x4 pixel blocks, each 16 bytes in size.
-        /// </remarks>
         public static TextureFormatInfo BC7 { get; } =
+            new TextureFormatInfo(4, 4, 1, 16);
+
+        /// <summary>
+        /// Predefined format info for BC3 compressed textures.
+        /// </summary>
+        public static TextureFormatInfo BC3 { get; } =
+            new TextureFormatInfo(4, 4, 1, 16);
+
+        /// <summary>
+        /// Predefined format info for ETC2 RGBA compressed textures.
+        /// </summary>
+        public static TextureFormatInfo ETC2_RGBA { get; } =
+            new TextureFormatInfo(4, 4, 1, 16);
+
+        /// <summary>
+        /// Predefined format info for ASTC 4x4 RGBA compressed textures.
+        /// </summary>
+        public static TextureFormatInfo ASTC_4X4_RGBA { get; } =
             new TextureFormatInfo(4, 4, 1, 16);
 
         /// <summary>
         /// Predefined format info for uncompressed RGBA8 textures.
         /// </summary>
-        public static TextureFormatInfo RGBA8 { get; } =
+        public static TextureFormatInfo RGBA32 { get; } =
             new TextureFormatInfo(1, 1, 1, 4);
     }
 
