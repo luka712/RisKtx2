@@ -107,16 +107,38 @@ namespace RisKtx2
         public IntPtr DataPtr => ris_ktxTexture2_GetPData(TexturePtr);
 
         /// <summary>
-        /// Creates a TextureFormatInfo instance based on the provided KtxTranscodeFormat.
+        /// Get a TextureFormatInfo instance based on the provided KtxTranscodeFormat.
         /// </summary>
         /// <param name="format">The <see cref="KtxTranscodeFormat"/>.</param>
         /// <returns>The <see cref="TextureFormatInfo"/>.</returns>
-        private TextureFormatInfo CreateTextureFormatInfo(KtxTranscodeFormat format)
+        public TextureFormatInfo GetTextureFormatInfo(KtxTranscodeFormat format)
         {
             return format switch
             {
-                KtxTranscodeFormat.KTX_TTF_BC7_RGBA => new TextureFormatInfo(4, 4, 1, 16),
-                _ => throw new NotSupportedException($"Unsupported transcode format: {format}")
+                KtxTranscodeFormat.BC7_RGBA => TextureFormatInfo.BC7,
+                KtxTranscodeFormat.ETC2_RGBA => TextureFormatInfo.ETC2_RGBA,
+                KtxTranscodeFormat.BC3_RGBA => TextureFormatInfo.BC3,
+                KtxTranscodeFormat.ASTC_4X4_RGBA => TextureFormatInfo.ASTC_4X4_RGBA,
+                KtxTranscodeFormat.RGBA32 => TextureFormatInfo.RGBA32,
+                _ => throw new NotImplementedException()
+            };
+        }
+
+        /// <summary>
+        /// Get a TextureFormatInfo instance based on the provided KtxTranscodeFormat.
+        /// </summary>
+        /// <param name="format">The <see cref="KtxTranscodeFormat"/>.</param>
+        /// <returns>The <see cref="TextureFormatInfo"/>.</returns>
+        public TextureFormatInfo GetTextureFormatInfo(VkFormat format)
+        {
+            return format switch
+            {
+                VkFormat.BC7_UNORM_BLOCK => TextureFormatInfo.BC7,
+                VkFormat.ETC2_R8G8B8A8_UNORM_BLOCK => TextureFormatInfo.ETC2_RGBA,
+                VkFormat.BC3_UNORM_BLOCK => TextureFormatInfo.BC3,
+                VkFormat.ASTC_4x4_UNORM_BLOCK => TextureFormatInfo.ASTC_4X4_RGBA,
+                VkFormat.R8G8B8A8_UNORM => TextureFormatInfo.RGBA32,
+                _ => throw new NotImplementedException()
             };
         }
 
@@ -130,6 +152,11 @@ namespace RisKtx2
             return ris_ktxTexture2_GetImageSize(TexturePtr, mipLevel);
         }
 
+        /// <summary>
+        /// Gets the row pitch (the number of bytes between the start of one row of pixel data and the start of the next row) for a specific mip level.
+        /// </summary>
+        /// <param name="mipLevel">The mip level.</param>
+        /// <returns>The size of row pitch.</returns>
         public uint GetRowPitch(uint mipLevel)
         {
             return ris_ktxTexture2_GetRowPitch(TexturePtr, mipLevel);
