@@ -29,20 +29,26 @@
 
         // ETC1-2
         KTX_TTF_ETC1_RGB = 0,
-        /*!< Opaque only. Returns RGB or alpha data, if
-             KTX_TF_TRANSCODE_ALPHA_DATA_TO_OPAQUE_FORMATS flag is
-             specified. */
-        KTX_TTF_ETC2_RGBA = 1,
+
+        /// <summary>
+        /// Transcode to ETC2 compressed RGBA texture. 
+        /// </summary>
+        ETC2_RGBA = 1,
+
         /*!< Opaque+alpha. EAC_A8 block followed by an ETC1 block. The
              alpha channel will be opaque for textures without an alpha
              channel. */
 
         // BC1-5, BC7 (desktop, some mobile devices)
         KTX_TTF_BC1_RGB = 2,
-        /*!< Opaque only, no punchthrough alpha support yet.  Returns RGB
-             or alpha data, if KTX_TF_TRANSCODE_ALPHA_DATA_TO_OPAQUE_FORMATS
-             flag is specified. */
-        KTX_TTF_BC3_RGBA = 3,
+
+        /// <summary>
+        /// Transcode to BC3 compressed RGBA texture.
+        /// Common on desktop devices.
+        /// Oldest and most widely supported block compression format for color textures.
+        /// </summary>
+        BC3_RGBA = 3,
+
         /*!< Opaque+alpha. BC4 block with alpha followed by a BC1 block. The
              alpha channel will be opaque for textures without an alpha
              channel. */
@@ -57,7 +63,7 @@
         /// High quality block compression for color textures.
         /// Supports alpha channel and is suitable for diffuse/physically based textures.
         /// </summary>
-        KTX_TTF_BC7_RGBA = 6,
+        BC7_RGBA = 6,
         /*!< RGB or RGBA mode 5 for ETC1S, modes 1, 2, 3, 4, 5, 6, 7 for
              UASTC. */
 
@@ -72,8 +78,12 @@
              will be used instead. Lowest quality of any supported
              texture format. */
 
-        // ASTC (mobile, Intel devices, hopefully all desktop GPU's one day)
-        KTX_TTF_ASTC_4x4_RGBA = 10,
+        /// <summary>
+        /// Compressed ASTC 4x4 RGBA texture.
+        /// Common on mobile devices, especially Apple. High quality block compression for color textures.
+        /// Supports alpha channel and is suitable for diffuse/physically based textures.
+        /// </summary>
+        ASTC_4X4_RGBA = 10,
         /*!< Opaque+alpha, ASTC 4x4. The alpha channel will be opaque for
              textures without an alpha channel.  The transcoder uses
              RGB/RGBA/L/LA modes, void extent, and up to two ([0,47] and
@@ -101,8 +111,12 @@
              texture should have an alpha channel (if not G will be all
              255's. For tangent space normal maps. */
 
-        // Uncompressed (raw pixel) formats
-        KTX_TTF_RGBA32 = 13,
+        /// <summary>
+        /// Uncompressed RGBA 32bpp image format.
+        /// Not a block compressed format.
+        /// Supported on all devices.
+        /// </summary>
+        RGBA32 = 13,
         /*!< 32bpp RGBA image stored in raster (not block) order in
              memory, R is first byte, A is last byte. */
         KTX_TTF_RGB565 = 14,
