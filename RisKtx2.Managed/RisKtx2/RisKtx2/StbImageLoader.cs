@@ -16,11 +16,17 @@ namespace RisKtx2
         {
             Native.NativeResolver.Setup();
         }
-
+        
+        /// <summary>
+        /// If true, the image will be flipped vertically when loaded.
+        /// </summary>
+        public bool VerticalFlip { get; set; }
    
         public byte[] Load(string filePath, out int width, out int height, out int channels, int desiredChannels = 0,
             VkFormat desiredFormat = VkFormat.R8G8B8A8_UNORM, int align = -1)
         {
+            Native.NativeStbImage.ris_stbi_set_flip_vertically_on_load(VerticalFlip);
+            
             IntPtr dataPtr =
                 Native.NativeStbImage.ris_stbi_load(filePath, out width, out height, out channels, desiredChannels);
             if (dataPtr == IntPtr.Zero)
