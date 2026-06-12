@@ -8,6 +8,10 @@
 
 #include "stb_image/stb_image_resize.h"
 
+void ris_stbi_set_flip_vertically_on_load(bool value) {
+	stbi_set_flip_vertically_on_load(value);
+}
+
 unsigned char* ris_stbi_load(const char* filename, int* width, int* height, int* channels, int desired_channels)
 {
 	return stbi_load(filename, width, height, channels, desired_channels);

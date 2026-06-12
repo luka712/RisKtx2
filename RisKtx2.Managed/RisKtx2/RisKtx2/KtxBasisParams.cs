@@ -3,7 +3,7 @@
 namespace RisKtx2
 {
     /// <summary>
-    /// Structure for passing extended parameters to ktxTexture2_CompressBasisEx().
+    /// The parameters for the Basis Universal compression algorithm.
     /// </summary>
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct KtxBasisParams
@@ -156,7 +156,7 @@ namespace RisKtx2
     /// Structure for passing extended parameters to ktxTexture2_CompressBasisEx().
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
-    internal unsafe struct ris_ktxBasisParams
+    internal struct ris_ktxBasisParams
     {
         public ris_ktxBasisParams()
         {

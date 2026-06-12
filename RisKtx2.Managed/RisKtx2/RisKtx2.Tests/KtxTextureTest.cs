@@ -13,6 +13,7 @@
         private const string TEST_OUTPUT_KTX2 = "Data/test_output.ktx2";
         private const string TEST_COMPRESSED_KTX2 = "Data/test_compressed.ktx2";
         private const string TEST_COMPRESSED_WITH_MIPS_KTX2 = "Data/test_compressed_with_mips.ktx2";
+        private const string TEST_ASTC_COMPRESSED_KTX2 = "Data/test_astc_compressed.ktx2";
 
         private const uint MIP_LEVEL_0 = 0;
         private const uint LAYER_0 = 0;
@@ -180,6 +181,79 @@
                 $"Loaded texture should have {expectedMipLevels} mip levels.");
         }
 
+        #endregion
+        
+        #region ASTC Compression Tests
+        
+        /// <summary>
+        /// Test compressing a texture to Astc format with maximum quality.
+        /// </summary>
+        [Test]
+        public void Test_CompressAstc()
+        {
+            try
+            {
+                using var texture = CreateAndFillTexture();
+
+                // Compress to Basis Universal format with maximum quality
+                texture.CompressAstc();
+
+                // Write compressed texture to a file
+                texture.WriteToNamedFile(TEST_ASTC_COMPRESSED_KTX2);
+
+                // Verify a file was created
+                Assert.That(File.Exists(TEST_ASTC_COMPRESSED_KTX2), "Compressed KTX file should exist after writing.");
+
+                var fileInfo = new FileInfo(TEST_ASTC_COMPRESSED_KTX2);
+                Assert.That(fileInfo.Length, Is.GreaterThan(0),
+                    "Compressed KTX file should have a size greater than 0.");
+            }
+            finally
+            {
+                // Cleanup: Delete test output file
+                if (File.Exists(TEST_ASTC_COMPRESSED_KTX2))
+                {
+                    File.Delete(TEST_ASTC_COMPRESSED_KTX2);
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Test compressing a texture to Astc format with maximum quality.
+        /// </summary>
+        [Test]
+        public void Test_CompressAstcParams()
+        {
+            try
+            {
+                using var texture = CreateAndFillTexture();
+
+                // Compress to Basis Universal format with maximum quality
+                texture.CompressAstc(new KtxAstcParams()
+                {
+                    QualityLevel = KtxPackAstcQualityLevels.EXHAUSTIVE
+                });
+
+                // Write compressed texture to a file
+                texture.WriteToNamedFile(TEST_ASTC_COMPRESSED_KTX2);
+
+                // Verify a file was created
+                Assert.That(File.Exists(TEST_ASTC_COMPRESSED_KTX2), "Compressed KTX file should exist after writing.");
+
+                var fileInfo = new FileInfo(TEST_ASTC_COMPRESSED_KTX2);
+                Assert.That(fileInfo.Length, Is.GreaterThan(0),
+                    "Compressed KTX file should have a size greater than 0.");
+            }
+            finally
+            {
+                // Cleanup: Delete test output file
+                if (File.Exists(TEST_ASTC_COMPRESSED_KTX2))
+                {
+                    File.Delete(TEST_ASTC_COMPRESSED_KTX2);
+                }
+            }
+        }
+        
         #endregion
 
         #region Helper Methods

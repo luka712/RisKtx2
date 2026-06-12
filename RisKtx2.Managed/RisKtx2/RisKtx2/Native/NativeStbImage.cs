@@ -9,6 +9,9 @@ namespace RisKtx2.Native
     internal static class NativeStbImage
     {
         private const string DLL_NAME = "ris_ktx2";
+        
+        [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void ris_stbi_set_flip_vertically_on_load(bool flip);
 
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr ris_stbi_load(
