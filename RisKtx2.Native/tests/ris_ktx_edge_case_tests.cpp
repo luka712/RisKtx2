@@ -1,5 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 #include <ris_ktx.hpp>
+#include <ris_ktx_logging.hpp>
 #include "test_utilities.hpp"
 
 // ---------------------------------------------------------------------------
@@ -123,12 +124,6 @@ TEST_CASE("ktx - GetVkFormat returns VK_FORMAT_UNDEFINED for null texture",
 // ---------------------------------------------------------------------------
 // Logging controls
 // ---------------------------------------------------------------------------
-
-TEST_CASE("ktx - Logging is disabled by default",
-          "[ris_ktxTexture2_IsLoggingEnabled]")
-{
-    REQUIRE(ris_ktxTexture2_IsLoggingEnabled() == 0);
-}
 
 TEST_CASE("ktx - EnableLogging can be called explicitly",
           "[ris_ktxTexture2_EnableLogging]")

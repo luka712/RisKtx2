@@ -126,6 +126,29 @@ API_EXPORT KTX_error_code ris_ktxTexture2_CompressBasisEx(
 	return ktxTexture2_CompressBasisEx(tex, &ktxParams);
 }
 
+API_EXPORT KTX_error_code ris_ktxTexture2_CompressAstc(ktxTexture2* tex, uint32_t quality) {
+	return ktxTexture2_CompressAstc(tex, quality);
+}
+
+API_EXPORT KTX_error_code ris_ktxTexture2_CompressAstcEx(ktxTexture2* tex, ris_ktxAstcParams* params) {
+	ktxAstcParams ktxParams = {};
+	ktxParams.structSize = sizeof(ktxAstcParams);
+	ktxParams.qualityLevel = params->qualityLevel;
+	for (int i = 0; i < 4; ++i) {
+		ktxParams.inputSwizzle[i] = params->inputSwizzle[i];
+	}
+	ktxParams.verbose = params->verbose;
+
+	if (ris_ktxLogging_IsEnabled()) {
+		char swizzle[5] = { params->inputSwizzle[0], params->inputSwizzle[1],
+							params->inputSwizzle[2], params->inputSwizzle[3], '\0' };
+		spdlog::debug("ris_ktxTexture2_CompressAstcEx: quality={}, inputSwizzle={:?}, verbose={}",
+		 std::to_string(params->qualityLevel), swizzle, params->verbose);
+	}
+
+	return ktxTexture2_CompressAstcEx(tex, &ktxParams);
+}
+
 API_EXPORT KTX_error_code ris_ktxTexture2_TranscodeBasis(
 	ktxTexture2* texture,
 	ktx_transcode_fmt_e outputFormat,

@@ -6,7 +6,7 @@
 #include <vulkan/vulkan.h>
 #include "ris_ktxTextureCreateInfo.hpp"
 #include "ris_ktxBasisParams.hpp"
-#include "ris_ktx_logging.hpp"
+#include "ris_ktxAstcParams.hpp"
 
 extern "C" {
 
@@ -99,6 +99,20 @@ KTX_error_code ris_ktxTexture2_CompressBasisEx(
     ktxTexture2* tex,
     const ris_ktxBasisParams* params);
 
+/**
+    * @brief Encode and compress a ktx texture with uncompressed images to astc.
+    * The images are either encoded to ASTC block-compressed format.
+    * The encoded images replace the original images and the texture's fields including the DFD are modified to reflect the new state.
+    * Such textures can be directly uploaded to a GPU via a graphics API.
+ * @param tex pointer to the ktxTexture2 object of interest.
+ * @param quality Compression quality, a value from 0 - 100. Higher=higher quality/slower speed. Lower=lower quality/faster speed. Negative values for quality are considered > 100.
+ * @return KTX_SUCCESS on success, other KTX_* enum values on error.
+ */
+API_EXPORT
+KTX_error_code ris_ktxTexture2_CompressAstc(ktxTexture2* tex, uint32_t quality);
+
+    API_EXPORT
+    KTX_error_code ris_ktxTexture2_CompressAstcEx(ktxTexture2* tex, ris_ktxAstcParams* params);
 /**
  * @brief Transcode a Basis Universal compressed KTX2 texture.
  * @param texture        The KTX2 texture (must need transcoding).

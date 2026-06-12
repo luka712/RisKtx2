@@ -6,6 +6,9 @@
 extern "C" {
 #endif
 
+    API_EXPORT
+    void ris_stbi_set_flip_vertically_on_load(bool value);
+
 API_EXPORT
 unsigned char *ris_stbi_load(const char *filename, int *width, int *height, int *channels, int desired_channels);
 
