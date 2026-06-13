@@ -17,6 +17,7 @@ TEST_CASE("ktx - Write astc",
     createInfo.vkFormat = VK_FORMAT_R8G8B8A8_UNORM;
 	createInfo.numLevels = 1;
 	createInfo.generateMipmaps = 0;
+    createInfo.numDimensions = 2;
 
     ktxTexture2* texture = nullptr;
     ktxTextureCreateStorageEnum storageAllocation = KTX_TEXTURE_CREATE_ALLOC_STORAGE;
@@ -28,8 +29,9 @@ TEST_CASE("ktx - Write astc",
     errorCode = ris_ktxTexture2_SetImageFromMemory(texture, 0, 0, 0, data, width * height * channels);
 	REQUIRE(errorCode == KTX_SUCCESS);
 
-    ris_ktxAstcParams params = {};
+    ris_ktxAstcParams params = ris_ktxAstcParams_InitDefaults();
     params.qualityLevel = KTX_PACK_ASTC_QUALITY_LEVEL_MEDIUM;
+    params.blockDimension = KTX_PACK_ASTC_BLOCK_DIMENSION_4x4;
 
     errorCode = ris_ktxTexture2_CompressAstcEx(texture, &params);
     REQUIRE(errorCode == KTX_SUCCESS);

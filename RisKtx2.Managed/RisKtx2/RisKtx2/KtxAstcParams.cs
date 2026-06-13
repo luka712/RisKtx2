@@ -24,6 +24,11 @@ public class KtxAstcParams
     /// The quality level of the ASTC compression algorithm.
     /// </summary>
     public KtxPackAstcQualityLevels QualityLevel { get; set; }
+
+    /// <summary>
+    /// The block dimension of the ASTC compression algorithm.
+    /// </summary>
+    public KtxPackAstcBlockDimension BlockDimension { get; set; } = KtxPackAstcBlockDimension.KTX_PACK_ASTC_BLOCK_DIMENSION_4X4;
     
     /// <summary>
     /// Converts this managed KtxBasisParams instance to its native representation (ris_ktxBasisParams) for use in interop calls.
@@ -34,6 +39,7 @@ public class KtxAstcParams
         ris_ktxAstcParams risKtxBasisParams = new()
         {
             qualityLevel = QualityLevel,
+            blockDim = BlockDimension,
             verbose = Verbose ? 1u : 0,
         };
 
@@ -60,6 +66,7 @@ internal struct ris_ktxAstcParams {
     
     public KtxPackAstcQualityLevels qualityLevel;
     public uint verbose;
+    public KtxPackAstcBlockDimension blockDim;
     public byte inputSwizzleR;
     public byte inputSwizzleG;
     public byte inputSwizzleB;

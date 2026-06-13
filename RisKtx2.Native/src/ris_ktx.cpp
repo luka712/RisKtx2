@@ -131,9 +131,14 @@ API_EXPORT KTX_error_code ris_ktxTexture2_CompressAstc(ktxTexture2* tex, uint32_
 }
 
 API_EXPORT KTX_error_code ris_ktxTexture2_CompressAstcEx(ktxTexture2* tex, ris_ktxAstcParams* params) {
-	ktxAstcParams ktxParams = {};
-	ktxParams.structSize = sizeof(ktxAstcParams);
+	ktxAstcParams ktxParams = {0};
+	ktxParams.structSize = sizeof(ktxParams);
 	ktxParams.qualityLevel = params->qualityLevel;
+	ktxParams.blockDimension = params->blockDimension;
+	ktxParams.mode = KTX_PACK_ASTC_ENCODER_MODE_LDR;
+	ktxParams.normalMap = false;
+	ktxParams.perceptual = false;
+	ktxParams.threadCount = 1;
 	for (int i = 0; i < 4; ++i) {
 		ktxParams.inputSwizzle[i] = params->inputSwizzle[i];
 	}
@@ -142,8 +147,8 @@ API_EXPORT KTX_error_code ris_ktxTexture2_CompressAstcEx(ktxTexture2* tex, ris_k
 	if (ris_ktxLogging_IsEnabled()) {
 		char swizzle[5] = { params->inputSwizzle[0], params->inputSwizzle[1],
 							params->inputSwizzle[2], params->inputSwizzle[3], '\0' };
-		spdlog::debug("ris_ktxTexture2_CompressAstcEx: quality={}, inputSwizzle={:?}, verbose={}",
-		 std::to_string(params->qualityLevel), swizzle, params->verbose);
+		spdlog::debug("ris_ktxTexture2_CompressAstcEx: quality={}, blockDimension={}, inputSwizzle={:?}, verbose={}",
+		 std::to_string(params->qualityLevel), std::to_string(params->blockDimension), swizzle, params->verbose);
 	}
 
 	return ktxTexture2_CompressAstcEx(tex, &ktxParams);
