@@ -21,9 +21,12 @@ typedef struct ris_ktxAstcParams {
     //! NOTE: Use uint32_t (0 or 1) instead of bool for C# P/Invoke compatibility.
     uint32_t verbose;
 
+    //! Combinations of block dimensions that astcenc supports i.e. 6x6, 8x8, 6x5, etc.
+    ktx_pack_astc_block_dimension_e blockDimension;
+
     //! A swizzle to apply before encoding.
     //! It must match the regular expression /^[rgba01]{4}$/.
-    //! If both this and preSwizzle are specified ktxTexture_CompressBasisEx will raise KTX_INVALID_OPERATION.
+    //! If both this and preSwizzle are specified, ktxTexture_CompressBasisEx will raise KTX_INVALID_OPERATION.
     //! Usable with both ETC1S and UASTC.
     char inputSwizzle[4];
 } ris_ktxAstcParams;
@@ -32,6 +35,10 @@ typedef struct ris_ktxAstcParams {
 //! Callers should then set etc1sCompressionLevel explicitly.
 inline ris_ktxAstcParams ris_ktxAstcParams_InitDefaults(void) {
     ris_ktxAstcParams params = {};
+    params.inputSwizzle[0] = 'R';
+    params.inputSwizzle[1] = 'G';
+    params.inputSwizzle[2] = 'B';
+    params.inputSwizzle[3] = 'A';
     return params;
 }
 
