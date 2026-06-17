@@ -306,8 +306,8 @@ public unsafe class Program
             uint logicalHeight = Math.Max(1, ktx2Texture.Height >> (int)level);
 
             // Round up to nearest 4x4 block for compressed formats
-            uint physicalWidth = (logicalWidth + formatInfo.BlockWidth) & ~formatInfo.BlockWidth;
-            uint physicalHeight = (logicalHeight + formatInfo.BlockHeight) & ~formatInfo.BlockHeight;
+            uint physicalWidth = (logicalWidth + formatInfo.BlockWidth - 1) & ~(formatInfo.BlockWidth - 1);
+            uint physicalHeight = (logicalHeight + formatInfo.BlockHeight - 1) & ~(formatInfo.BlockHeight - 1);
 
             // BC7 format: 16 bytes per 4x4 block
             uint bytesPerRow = physicalWidth * 4;
