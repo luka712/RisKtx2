@@ -180,7 +180,65 @@
             Assert.That(loadedTexture.NumLevels, Is.EqualTo(expectedMipLevels),
                 $"Loaded texture should have {expectedMipLevels} mip levels.");
         }
+        
+        /// <summary>
+        /// Test compressing a texture to Basis Universal UASTC format.
+        /// </summary>
+        [Test]
+        public void Test_CompressBasisUastc()
+        {
+            // Create texture with mip levels
+            using var texture = CreateTextureWithMipLevels(out int expectedMipLevels);
 
+            // Compress to Basis Universal UASTC format
+            texture.CompressBasis(new KtxBasisParams
+            {
+                Uastc = true,
+                UastcFlags = KtxUastcFlags.LEVEL_DEFAULT | KtxUastcFlags.LEVEL_MASK | KtxUastcFlags.FAVOR_BC7_ERROR,
+            });
+
+            // Write compressed texture with mips to a file
+            texture.WriteToNamedFile(TEST_COMPRESSED_WITH_MIPS_KTX2);
+
+            // Verify a file was created
+            Assert.That(File.Exists(TEST_COMPRESSED_WITH_MIPS_KTX2),
+                "Compressed KTX file with mips should exist after writing.");
+
+            // Load the compressed texture and verify mip levels are preserved
+            using var loadedTexture = new Ktx2Texture(TEST_COMPRESSED_WITH_MIPS_KTX2);
+            Assert.That(loadedTexture.NumLevels, Is.EqualTo(expectedMipLevels),
+                $"Loaded texture should have {expectedMipLevels} mip levels.");
+        }
+        
+        /// <summary>
+        /// Test compressing a texture to Basis Universal ECT1S format.
+        /// </summary>
+        [Test]
+        public void Test_CompressBasisEct1s()
+        {
+            // Create texture with mip levels
+            using var texture = CreateTextureWithMipLevels(out int expectedMipLevels);
+
+            // Compress to Basis Universal ECT1S format
+            texture.CompressBasis(new KtxBasisParams
+            {
+                QualityLevel = 255,
+                CompressionLevel = 5
+            });
+
+            // Write compressed texture with mips to a file
+            texture.WriteToNamedFile(TEST_COMPRESSED_WITH_MIPS_KTX2);
+
+            // Verify a file was created
+            Assert.That(File.Exists(TEST_COMPRESSED_WITH_MIPS_KTX2),
+                "Compressed KTX file with mips should exist after writing.");
+
+            // Load the compressed texture and verify mip levels are preserved
+            using var loadedTexture = new Ktx2Texture(TEST_COMPRESSED_WITH_MIPS_KTX2);
+            Assert.That(loadedTexture.NumLevels, Is.EqualTo(expectedMipLevels),
+                $"Loaded texture should have {expectedMipLevels} mip levels.");
+        }
+        
         #endregion
         
         #region ASTC Compression Tests
@@ -224,14 +282,13 @@
         [Test]
         public void Test_CompressAstcParams()
         {
-            try
-            {
                 using var texture = CreateAndFillTexture();
 
                 // Compress to Basis Universal format with maximum quality
                 texture.CompressAstc(new KtxAstcParams()
                 {
-                    QualityLevel = KtxPackAstcQualityLevels.EXHAUSTIVE
+                    QualityLevel = KtxPackAstcQualityLevels.FASTEST,
+                    BlockDimension = KtxPackAstcBlockDimension.KTX_PACK_ASTC_BLOCK_DIMENSION_6X6
                 });
 
                 // Write compressed texture to a file
@@ -243,15 +300,6 @@
                 var fileInfo = new FileInfo(TEST_ASTC_COMPRESSED_KTX2);
                 Assert.That(fileInfo.Length, Is.GreaterThan(0),
                     "Compressed KTX file should have a size greater than 0.");
-            }
-            finally
-            {
-                // Cleanup: Delete test output file
-                if (File.Exists(TEST_ASTC_COMPRESSED_KTX2))
-                {
-                    File.Delete(TEST_ASTC_COMPRESSED_KTX2);
-                }
-            }
         }
         
         #endregion
