@@ -103,10 +103,10 @@ API_EXPORT KTX_error_code ris_ktxTexture2_CompressBasisEx(
 	ktxBasisParams ktxParams = {};
 	ktxParams.structSize = sizeof(ktxBasisParams);
 	ktxParams.uastc = params->uastc;
+	ktxParams.uastcFlags = params->uastcFlags;
 	ktxParams.qualityLevel = params->qualityLevel;
-	ktxParams.compressionLevel = params->etc1sCompressionLevel;
+	ktxParams.compressionLevel = params->compressionLevel;
 	ktxParams.normalMap = params->normalMap;
-	ktxParams.uastcFlags = KTX_PACK_UASTC_LEVEL_DEFAULT;
 	ktxParams.threadCount = params->threadCount;
 	ktxParams.uastcRDO = params->uastcRDO;
 	ktxParams.uastcRDOQualityScalar = params->uastcRDOQualityScalar;
@@ -119,7 +119,7 @@ API_EXPORT KTX_error_code ris_ktxTexture2_CompressBasisEx(
 		char swizzle[5] = { params->inputSwizzle[0], params->inputSwizzle[1],
 		                    params->inputSwizzle[2], params->inputSwizzle[3], '\0' };
 		spdlog::debug("ris_ktxTexture2_CompressBasisEx: uastc={}, quality={}, compression={}, uastcRDO={}, uastcRDOQualityScalar={}, inputSwizzle={:?}, verbose={}",
-			params->uastc, params->qualityLevel, params->etc1sCompressionLevel,
+			params->uastc, params->qualityLevel, params->compressionLevel,
 			params->uastcRDO, params->uastcRDOQualityScalar, swizzle, params->verbose);
 	}
 
