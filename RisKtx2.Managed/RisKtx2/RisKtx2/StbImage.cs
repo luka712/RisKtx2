@@ -6,6 +6,9 @@ using System.Threading.Channels;
 namespace RisKtx2
 {
 
+    /// <summary>
+    /// The StbImage class represents a raw image loaded from a file using the stb_image library.
+    /// </summary>
     public class StbImage 
     {
         internal StbImage(int width, int height, int channels, byte[] data, VkFormat format)

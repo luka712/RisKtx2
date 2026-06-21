@@ -6,7 +6,7 @@
 unsigned char* loadTestPng(int* width, int* height, int* channels, bool vertical_flip)
 {
 	ris_stbi_set_flip_vertically_on_load(vertical_flip);
-	return ris_stbi_load(TEST_PNG, width, height, channels, 0);
+	return ris_stbi_load(TEST_PNG, width, height, channels, 4);
 }
 
 unsigned char* generateMipLevel(unsigned char* input_data,
