@@ -33,9 +33,9 @@ jobs:
             exit 1
           fi
 
-          SHORT_SHA=$(git rev-parse --short HEAD)
+          DATETIME=$(date -u +'%Y%m%d%H%M%S')
 
-          PREVIEW_VERSION="${BASE_VERSION}-preview.${SHORT_SHA}"
+          PREVIEW_VERSION="${BASE_VERSION}-preview.${DATETIME}"
 
           echo "Preview version: $PREVIEW_VERSION"
           echo "VERSION=$PREVIEW_VERSION" >> $GITHUB_ENV
