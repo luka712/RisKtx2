@@ -8,7 +8,9 @@
     {
         #region Constants
 
-        private const string TEXT_PNG = "Data/test.png";
+        private const string TEST_PNG = "Data/test.png";
+        private const string LENNA_PNG = "Data/Lenna.png"; 
+        
         private const string TEST_KTX_BASIS_UASTC = "Data/test_basis_uastc.ktx2";
         private const string TEST_OUTPUT_KTX2 = "Data/test_output.ktx2";
         private const string TEST_COMPRESSED_KTX2 = "Data/test_compressed.ktx2";
@@ -156,10 +158,10 @@
         /// Test compressing a texture with mip levels to Basis Universal UASTC format.
         /// </summary>
         [Test]
-        public void Test_CompressBasisWithMipLevels()
+        public void Test_CompressBasisUastcWithMipLevels()
         {
             // Create texture with mip levels
-            using var texture = CreateTextureWithMipLevels(out int expectedMipLevels);
+            using var texture = CreateAlignedTextureWithMipLevels(out int expectedMipLevels);
 
             // Compress to Basis Universal UASTC format
             texture.CompressBasis(new KtxBasisParams
@@ -188,13 +190,13 @@
         public void Test_CompressBasisUastc()
         {
             // Create texture with mip levels
-            using var texture = CreateTextureWithMipLevels(out int expectedMipLevels);
+            using var texture = CreateAlignedTextureWithMipLevels(out int expectedMipLevels);
 
             // Compress to Basis Universal UASTC format
             texture.CompressBasis(new KtxBasisParams
             {
                 Uastc = true,
-                UastcFlags = KtxUastcFlags.LEVEL_DEFAULT | KtxUastcFlags.LEVEL_MASK | KtxUastcFlags.FAVOR_BC7_ERROR,
+                UastcFlags = KtxUastcFlags.LEVEL_DEFAULT,
             });
 
             // Write compressed texture with mips to a file
@@ -217,7 +219,7 @@
         public void Test_CompressBasisEct1s()
         {
             // Create texture with mip levels
-            using var texture = CreateTextureWithMipLevels(out int expectedMipLevels);
+            using var texture = CreateAlignedTextureWithMipLevels(out int expectedMipLevels);
 
             // Compress to Basis Universal ECT1S format
             texture.CompressBasis(new KtxBasisParams
@@ -314,13 +316,14 @@
         {
             // Load image data from PNG file using STB
             StbImageLoader loader = new();
-            var bytes = loader.Load(TEXT_PNG, out int width, out int height, out int channels, align: 4);
+            var image = loader.Load(TEST_PNG, 4, VkFormat.R8G8B8A8_UNORM);
+            var bytes = image.Bytes; 
 
             // Create KTX texture with appropriate format
             var createInfo = new KtxTextureCreateInfo
             {
-                BaseWidth = (uint)width,
-                BaseHeight = (uint)height,
+                BaseWidth = (uint)image.Width,
+                BaseHeight = (uint)image.Height,
                 VkFormat = VkFormat.R8G8B8A8_UNORM,
             };
 
@@ -337,10 +340,10 @@
         /// </summary>
         /// <param name="mipLevelCount">Output parameter containing the number of mip levels created.</param>
         /// <returns>A newly created Ktx2Texture with mip levels.</returns>
-        private Ktx2Texture CreateTextureWithMipLevels(out int mipLevelCount)
+        private Ktx2Texture CreateAlignedTextureWithMipLevels(out int mipLevelCount)
         {
             StbImageLoader loader = new();
-            var level0Image = loader.Load(TEXT_PNG, align: 4);
+            var level0Image = loader.Load(LENNA_PNG, 4, VkFormat.R8G8B8A8_UNORM);
 
             // Generate mip chain by repeatedly halving dimensions
             var width = level0Image.Width;
