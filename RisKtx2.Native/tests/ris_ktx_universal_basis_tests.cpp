@@ -29,7 +29,7 @@ TEST_CASE("ktx - Write universal basis",
 	REQUIRE(errorCode == KTX_SUCCESS);
 
     ris_ktxBasisParams params = {};
-    params.etc1sCompressionLevel = KTX_ETC1S_DEFAULT_COMPRESSION_LEVEL;
+    params.compressionLevel = KTX_ETC1S_DEFAULT_COMPRESSION_LEVEL;
 
     errorCode = ris_ktxTexture2_CompressBasisEx(texture, &params);
     REQUIRE(errorCode == KTX_SUCCESS);
@@ -66,7 +66,44 @@ TEST_CASE("ktx - Write universal basis uastc",
 
     ris_ktxBasisParams params = {};
     params.uastc = 1;
-    params.qualityLevel= 255;
+    params.uastcFlags = KTX_PACK_UASTC_LEVEL_DEFAULT;
+
+    errorCode = ris_ktxTexture2_CompressBasisEx(texture, &params);
+    REQUIRE(errorCode == KTX_SUCCESS);
+
+    errorCode = ris_ktxTexture2_WriteToNamedFile(texture, TEST_OUTPUT_KTX);
+    ris_ktxTexture2_Destroy(texture);
+
+    freeTestPng(data);
+    REQUIRE(errorCode == KTX_SUCCESS);
+}
+
+TEST_CASE("ktx - Write universal basis ect1s",
+              "[ris_ktx_texture_write_universal_basis_ect1s_test]")
+{
+    int width, height, channels;
+    auto data = loadTestPng(&width, &height, &channels);
+
+    ris_ktxTextureCreateInfo createInfo = {};
+    createInfo.baseWidth = width;
+    createInfo.baseHeight = height;
+    createInfo.vkFormat = VK_FORMAT_R8G8B8A8_UNORM;
+    createInfo.numLevels = 1;
+    createInfo.generateMipmaps = 0;
+
+    ktxTexture2* texture = nullptr;
+    ktxTextureCreateStorageEnum storageAllocation = KTX_TEXTURE_CREATE_ALLOC_STORAGE;
+    auto errorCode = ris_ktxTexture2_Create(&createInfo, storageAllocation, &texture);
+
+    REQUIRE(errorCode == KTX_SUCCESS);
+    REQUIRE(texture != nullptr);
+
+    errorCode = ris_ktxTexture2_SetImageFromMemory(texture, 0, 0, 0, data, width * height * channels);
+    REQUIRE(errorCode == KTX_SUCCESS);
+
+    ris_ktxBasisParams params = {};
+    params.qualityLevel = 255;
+    params.compressionLevel = KTX_ETC1S_DEFAULT_COMPRESSION_LEVEL;
 
     errorCode = ris_ktxTexture2_CompressBasisEx(texture, &params);
     REQUIRE(errorCode == KTX_SUCCESS);

@@ -189,7 +189,7 @@ TEST_CASE("ktx - Write universal basis with manual mip levels",
     REQUIRE(errorCode == KTX_SUCCESS);
 
     ris_ktxBasisParams params = {};
-    params.etc1sCompressionLevel = KTX_ETC1S_DEFAULT_COMPRESSION_LEVEL;
+    params.compressionLevel = KTX_ETC1S_DEFAULT_COMPRESSION_LEVEL;
 
     errorCode = ris_ktxTexture2_CompressBasisEx(texture, &params);
     REQUIRE(errorCode == KTX_SUCCESS);

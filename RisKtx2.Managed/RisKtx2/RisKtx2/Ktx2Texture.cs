@@ -11,17 +11,12 @@ namespace RisKtx2
     /// </summary>
     public class Ktx2Texture : IDisposable
     {
-        private static bool _firstLoad = true;
-
-        private readonly string _filePath;
-
         /// <summary>
         /// The constructor for the KtxTexture class. It attempts to load a KTX texture from the specified file path. 
         /// If the loading process fails, it throws an exception with a descriptive error message.
         /// </summary>
         /// <param name="filePath">The file path to the .ktx or .ktx2 texture.</param>
         /// <param name="createFlags">The <see cref="KtxTextureCreateFlags"/>. By default, it is <c>TEXTURE_CREATE_LOAD_IMAGE_DATA_BIT</c>.</param>
-        /// <param name="transcodeFlags">The <see cref="KtxTranscodeFlags"/>. By default, it is <c>0</c>.</param>
         /// <exception cref="Exception">
         /// If the texture fails to load from the specified file path, an exception is thrown with details about the failure.
         /// </exception>
@@ -29,18 +24,18 @@ namespace RisKtx2
             KtxTextureCreateFlags createFlags = KtxTextureCreateFlags.TEXTURE_CREATE_LOAD_IMAGE_DATA_BIT)
         {
             NativeResolver.Setup();
-            _filePath = filePath;
+            var filePath1 = filePath;
 
             TexturePtr = IntPtr.Zero;
 
-            KtxErrorCode errorCode = ris_ktxTexture2_CreateFromNamedFile(_filePath, createFlags, out IntPtr texture);
+            KtxErrorCode errorCode = ris_ktxTexture2_CreateFromNamedFile(filePath1, createFlags, out IntPtr texture);
             if (errorCode == KtxErrorCode.KTX_FILE_OPEN_FAILED)
             {
-                throw new FileNotFoundException($"The specified KTX file '{_filePath}' could not be found.");
+                throw new FileNotFoundException($"The specified KTX file '{filePath1}' could not be found.");
             }
             else if (errorCode != KtxErrorCode.KTX_SUCCESS)
             {
-                throw new Exception($"Failed to load KTX texture from '{_filePath}'. Error code: {errorCode}");
+                throw new Exception($"Failed to load KTX texture from '{filePath1}'. Error code: {errorCode}");
             }
             TexturePtr = texture;
         }
@@ -107,16 +102,38 @@ namespace RisKtx2
         public IntPtr DataPtr => ris_ktxTexture2_GetPData(TexturePtr);
 
         /// <summary>
-        /// Creates a TextureFormatInfo instance based on the provided KtxTranscodeFormat.
+        /// Get a TextureFormatInfo instance based on the provided KtxTranscodeFormat.
         /// </summary>
         /// <param name="format">The <see cref="KtxTranscodeFormat"/>.</param>
         /// <returns>The <see cref="TextureFormatInfo"/>.</returns>
-        private TextureFormatInfo CreateTextureFormatInfo(KtxTranscodeFormat format)
+        public TextureFormatInfo GetTextureFormatInfo(KtxTranscodeFormat format)
         {
             return format switch
             {
-                KtxTranscodeFormat.KTX_TTF_BC7_RGBA => new TextureFormatInfo(4, 4, 1, 16),
-                _ => throw new NotSupportedException($"Unsupported transcode format: {format}")
+                KtxTranscodeFormat.BC7_RGBA => TextureFormatInfo.BC7,
+                KtxTranscodeFormat.ETC2_RGBA => TextureFormatInfo.ETC2_RGBA,
+                KtxTranscodeFormat.BC3_RGBA => TextureFormatInfo.BC3,
+                KtxTranscodeFormat.ASTC_4X4_RGBA => TextureFormatInfo.ASTC_4X4_RGBA,
+                KtxTranscodeFormat.RGBA32 => TextureFormatInfo.RGBA32,
+                _ => throw new NotImplementedException()
+            };
+        }
+
+        /// <summary>
+        /// Get a TextureFormatInfo instance based on the provided KtxTranscodeFormat.
+        /// </summary>
+        /// <param name="format">The <see cref="KtxTranscodeFormat"/>.</param>
+        /// <returns>The <see cref="TextureFormatInfo"/>.</returns>
+        public TextureFormatInfo GetTextureFormatInfo(VkFormat format)
+        {
+            return format switch
+            {
+                VkFormat.BC7_UNORM_BLOCK => TextureFormatInfo.BC7,
+                VkFormat.ETC2_R8G8B8A8_UNORM_BLOCK => TextureFormatInfo.ETC2_RGBA,
+                VkFormat.BC3_UNORM_BLOCK => TextureFormatInfo.BC3,
+                VkFormat.ASTC_4x4_UNORM_BLOCK => TextureFormatInfo.ASTC_4X4_RGBA,
+                VkFormat.R8G8B8A8_UNORM => TextureFormatInfo.RGBA32,
+                _ => throw new NotImplementedException()
             };
         }
 
@@ -124,19 +141,24 @@ namespace RisKtx2
         /// Gets the size of the image data for a specific mip level.
         /// </summary>
         /// <param name="mipLevel">The mip level.</param>
-        /// <returns>The size of image.</returns>
+        /// <returns>The size of the image.</returns>
         public ulong GetImageSize(uint mipLevel)
         {
             return ris_ktxTexture2_GetImageSize(TexturePtr, mipLevel);
         }
 
+        /// <summary>
+        /// Gets the row pitch (the number of bytes between the start of one row of pixel data and the start of the next row) for a specific mip level.
+        /// </summary>
+        /// <param name="mipLevel">The mip level.</param>
+        /// <returns>The size of row pitch.</returns>
         public uint GetRowPitch(uint mipLevel)
         {
             return ris_ktxTexture2_GetRowPitch(TexturePtr, mipLevel);
         }
 
         /// <summary>
-        /// Transcodes the basis texture to the specified transcode format.
+        /// Transcode the basis texture to the specified transcoding format.
         /// </summary>
         /// <param name="transcodeFormat">The <see cref="KtxTranscodeFormat"/>.</param>
         /// <param name="transcodeFlags">The <see cref="KtxTranscodeFlags"/>.</param>
@@ -238,7 +260,7 @@ namespace RisKtx2
         /// <summary>
         /// Gets the raw texture data from the native KTX texture object.
         /// </summary>
-        /// <returns>The texture data as byte array.</returns>
+        /// <returns>The texture data as a byte array.</returns>
         public IntPtr GetTextureData(ulong offset = 0)
         {
             return ris_ktxTexture2_GetData(TexturePtr) + (int)offset;
@@ -314,6 +336,62 @@ namespace RisKtx2
             if (result != KtxErrorCode.KTX_SUCCESS)
             {
                 throw new Exception($"Failed to compress KTX texture with quality {quality}. Error code: {result}");
+            }
+        }
+
+        /// <summary>
+        /// Encode and compress a ktx texture with uncompressed images to astc.
+        /// The images are either encoded to ASTC block-compressed format.
+        /// The encoded images replace the original images and the texture's fields including the DFD are modified to reflect the new state.
+        /// Such textures can be directly uploaded to a GPU via a graphics API.
+        /// </summary>
+        /// <param name="quality">
+        /// Compression quality, a value from 0 to 100.
+        /// Higher=higher quality/slower speed.
+        /// Lower=lower quality/faster speed.
+        /// </param>
+        public void CompressAstc(uint quality)
+        {
+            if (quality > 100 )
+            {
+                throw new ArgumentOutOfRangeException(nameof(quality), "Quality must be in the range 0-100.");
+            }
+            
+            var result = ris_ktxTexture2_CompressAstc(TexturePtr, quality);
+            if (result != KtxErrorCode.KTX_SUCCESS)
+            {
+                throw new Exception($"Failed to compress KTX texture with quality {quality}. Error code: {result}");
+            }
+        }
+        
+        /// <summary>
+        /// Encode and compress a ktx texture with uncompressed images to astc.
+        /// </summary>
+        /// <param name="quality">The <see cref="KtxPackAstcQualityLevels"/>.</param>
+        public void CompressAstc(KtxPackAstcQualityLevels quality = KtxPackAstcQualityLevels.MEDIUM)
+        {
+            CompressAstc((uint)quality);
+        }
+
+        /// <summary>
+        /// Encode and compress a ktx texture with uncompressed images to astc.
+        /// The images are encoded to ASTC block-compressed format.
+        /// The encoded images replace the original images, and the texture's fields including the DFD are modified to reflect the new state.
+        /// Such textures can be directly uploaded to a GPU via a graphics API.
+        /// </summary>
+        /// <param name="astcParams">The astc compression parameters.</param>
+        public void CompressAstc(KtxAstcParams astcParams)
+        {
+            unsafe
+            {
+                ris_ktxAstcParams* astcParamsPtr = stackalloc ris_ktxAstcParams[1];
+                *astcParamsPtr = astcParams.ToNative();
+                var result = ris_ktxTexture2_CompressAstcEx(TexturePtr, (nint) astcParamsPtr);
+                
+                if (result != KtxErrorCode.KTX_SUCCESS)
+                {
+                    throw new Exception($"Failed to compress KTX texture with astc parameters. Error code: {result}");
+                }
             }
         }
 

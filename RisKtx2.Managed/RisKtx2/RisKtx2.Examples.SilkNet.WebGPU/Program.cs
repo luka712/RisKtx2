@@ -26,7 +26,7 @@ public unsafe class Program
     // Window and WebGPU core
     private IWindow _window = null!;
     private WebGPU _wgpu = null!;
-    
+
     // WebGPU objects
     private Instance* _instance;
     private Surface* _surface;
@@ -45,6 +45,10 @@ public unsafe class Program
     private Silk.NET.WebGPU.Buffer* _indexBuffer;
 
     private uint _indexCount;
+
+    private bool _bcFormatsSupported;
+    private bool _astcFormatsSupported;
+    private bool _etc2FormatsSupported;
 
     #endregion
 
@@ -154,12 +158,46 @@ public unsafe class Program
     {
         Device* device = null;
         var deviceDescriptor = new DeviceDescriptor();
-        
+
+        int featuresCount = 0;
+
+        // Check if adapter supports required BC texture compression feature
+        if (_wgpu.AdapterHasFeature(_adapter, FeatureName.TextureCompressionBC))
+        {
+            _bcFormatsSupported = true;
+            featuresCount++;
+        }
+
+        if (_wgpu.AdapterHasFeature(_adapter, FeatureName.TextureCompressionAstc))
+        {
+            _astcFormatsSupported = true;
+            featuresCount++;
+        }
+
+        if (_wgpu.AdapterHasFeature(_adapter, FeatureName.TextureCompressionEtc2))
+        {
+            _etc2FormatsSupported = true;
+            featuresCount++;
+        }
+
         // Request BC compression feature
-        var features = stackalloc FeatureName[1];
-        features[0] = FeatureName.TextureCompressionBC;
+        var features = stackalloc FeatureName[featuresCount];
+        var index = 0;
+        if (_bcFormatsSupported)
+        {
+            features[index++] = FeatureName.TextureCompressionBC;
+        }
+        if (_astcFormatsSupported)
+        {
+            features[index++] = FeatureName.TextureCompressionAstc;
+        }
+        if (_etc2FormatsSupported)
+        {
+            features[index++] = FeatureName.TextureCompressionEtc2;
+        }
+
         deviceDescriptor.RequiredFeatures = features;
-        deviceDescriptor.RequiredFeatureCount = 1;
+        deviceDescriptor.RequiredFeatureCount = (nuint) featuresCount;
 
         _wgpu.AdapterRequestDevice(_adapter, &deviceDescriptor, new PfnRequestDeviceCallback((status, deviceHandle, message, _) =>
         {
@@ -217,8 +255,25 @@ public unsafe class Program
         // BC7 provides high quality and is widely supported on desktop
         if (ktx2Texture.NeedsTranscoding)
         {
-            ktx2Texture.TranscodeBasis(KtxTranscodeFormat.KTX_TTF_BC7_RGBA);
+            if (_bcFormatsSupported)
+            {
+                ktx2Texture.TranscodeBasis(KtxTranscodeFormat.BC7_RGBA);
+            }
+            else if (_astcFormatsSupported)
+            {
+                ktx2Texture.TranscodeBasis(KtxTranscodeFormat.ASTC_4X4_RGBA);
+            }
+            else if (_etc2FormatsSupported)
+            {
+                ktx2Texture.TranscodeBasis(KtxTranscodeFormat.ETC2_RGBA);
+            }
+            else
+            {
+                throw new Exception("No supported compressed texture format available for transcoding");
+            }
         }
+
+        var formatInfo = ktx2Texture.GetTextureFormatInfo(KtxTranscodeFormat.BC7_RGBA);
 
         // Create GPU texture descriptor
         var textureDescriptor = new TextureDescriptor
@@ -251,8 +306,8 @@ public unsafe class Program
             uint logicalHeight = Math.Max(1, ktx2Texture.Height >> (int)level);
 
             // Round up to nearest 4x4 block for compressed formats
-            uint physicalWidth = (logicalWidth + 3) & ~3u;
-            uint physicalHeight = (logicalHeight + 3) & ~3u;
+            uint physicalWidth = (logicalWidth + formatInfo.BlockWidth - 1) & ~(formatInfo.BlockWidth - 1);
+            uint physicalHeight = (logicalHeight + formatInfo.BlockHeight - 1) & ~(formatInfo.BlockHeight - 1);
 
             // BC7 format: 16 bytes per 4x4 block
             uint bytesPerRow = physicalWidth * 4;
@@ -536,10 +591,10 @@ fn fs_main(input: VertexOutput) -> @location(0) vec4<f32> {
         // Quad vertices: position (xy) + texCoord (uv)
         float[] vertices =
         [
-            -0.5f, -0.5f,   0f, 1f, 
-             0.5f, -0.5f,   1f, 1f, 
-             0.5f,  0.5f,   1f, 0f, 
-            -0.5f,  0.5f,   0f, 0f  
+            -0.5f, -0.5f,   0f, 1f,
+             0.5f, -0.5f,   1f, 1f,
+             0.5f,  0.5f,   1f, 0f,
+            -0.5f,  0.5f,   0f, 0f
         ];
 
         // Two triangles forming a quad
@@ -617,7 +672,7 @@ fn fs_main(input: VertexOutput) -> @location(0) vec4<f32> {
         _wgpu.RenderPassEncoderSetBindGroup(renderPass, 0, _bindGroup, 0, null);
         _wgpu.RenderPassEncoderSetVertexBuffer(renderPass, 0, _vertexBuffer, 0, ulong.MaxValue);
         _wgpu.RenderPassEncoderSetIndexBuffer(renderPass, _indexBuffer, IndexFormat.Uint16, 0, ulong.MaxValue);
-        
+
         // Draw indexed quad (6 indices, 2 triangles)
         _wgpu.RenderPassEncoderDrawIndexed(renderPass, _indexCount, 1, 0, 0, 0);
 

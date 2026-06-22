@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <ktx.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -27,7 +28,7 @@ typedef struct ris_ktxBasisParams
 	//! There is no default.
 	//! Callers must explicitly set this value.
 	//! Callers can use KTX_ETC1S_DEFAULT_COMPRESSION_LEVEL as a default value. Currently this is 2.
-	uint32_t etc1sCompressionLevel;
+	uint32_t compressionLevel;
 
 	//! Compression quality.
 	//! Range is [1,255].
@@ -48,6 +49,18 @@ typedef struct ris_ktxBasisParams
 	//! True to use UASTC base, false to use ETC1S base.
 	//! NOTE: Use uint32_t (0 or 1) instead of bool for C# P/Invoke compatibility.
 	uint32_t uastc;
+
+	//! A set of ::ktx_pack_uastc_flag_bits_e controlling UASTC encoding.
+	//! The most important value is the level given in the least-significant 4 bits which selects a speed vs quality tradeoff
+	//! as shown in the following table:
+	   //! Level/Speed | Quality
+	   //! :-----: | :-------:
+	   //! KTX_PACK_UASTC_LEVEL_FASTEST | 43.45dB
+	   //! KTX_PACK_UASTC_LEVEL_FASTER | 46.49dB
+	   //! KTX_PACK_UASTC_LEVEL_DEFAULT | 47.47dB
+	   //! KTX_PACK_UASTC_LEVEL_SLOWER  | 48.01dB
+	   //! KTX_PACK_UASTC_LEVEL_VERYSLOW | 48.24dB
+	ktx_pack_uastc_flag_bits_e uastcFlags;
 
 	//! Enable Rate Distortion Optimization (RDO) post-processing.
 	//! NOTE: Use uint32_t (0 or 1) instead of bool for C# P/Invoke compatibility.

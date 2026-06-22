@@ -27,11 +27,13 @@ file(GLOB TEST_SRC_FILES tests/*.cpp tests/**/*.cpp tests/**/**/*.cpp tests/**/*
 add_library(${TARGET_NAME} SHARED
         library.cpp
         ${SRC_FILES}
+        include/ris_ktxAstcParams.hpp
 )
 
 add_executable(${TESTS_NAME}
         ${SRC_FILES}
         ${TEST_SRC_FILES}
+        tests/ris_ktx_astc_tests.cpp
 )
 
 # Include dirs

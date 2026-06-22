@@ -3,48 +3,37 @@
 namespace RisKtx2
 {
     /// <summary>
-    /// Structure for passing extended parameters to ktxTexture2_CompressBasisEx().
+    /// The parameters for the Basis Universal compression algorithm.
     /// </summary>
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct KtxBasisParams
     {
-        private uint _etc1sCompressionLevel = KtxConstants.ETC1S_DEFAULT_COMPRESSION_LEVEL;
-        private uint _qualityLevel = KtxConstants.BASISU_DEFAULT_QUALITY_LEVEL;
-
         /// <summary>
         /// The constructor.
         /// </summary>
         public KtxBasisParams()
         {
-
         }
 
         /// <summary>
-        /// ETC1S compression effort level.
-        /// Range is [0,6].
-        /// Higher values are much slower but give slightly higher quality.
-        /// <para/>
-        /// Higher levels are intended for video.
-        /// <para/>
-        /// This parameter controls numerous internal encoding speed vs. compression efficiency/performance tradeoffs.
-        /// Note this is NOT the same as the ETC1S quality level, and most users shouldn't change this.
+        /// Encoding speed vs. quality tradeoff.
+        /// Range is [0,5].
+        /// Higher values are slower but give higher quality.
         /// There is no default.
         /// Callers must explicitly set this value.
-        /// Callers can use KTX_ETC1S_DEFAULT_COMPRESSION_LEVEL as a default value. Currently, this is <c>2</c>.
+        /// Currently, this is 2.
         /// </summary>
-        /// <remarks>
-        /// This controls how hard the encoder works to optimize compression.
-        /// </remarks>
-        public uint ETC1SCompressionLevel
+        public uint CompressionLevel
         {
-            get => _etc1sCompressionLevel;
+            get;
             set
             {
-                if (value > 6)
-                    throw new ArgumentOutOfRangeException(nameof(ETC1SCompressionLevel), "CompressionLevel must be in the range [0, 6].");
-                _etc1sCompressionLevel = value;
+                if (value > 5)
+                    throw new ArgumentOutOfRangeException(nameof(CompressionLevel),
+                        "CompressionLevel must be in the range [0, 5].");
+                field = value;
             }
-        }
+        } = KtxConstants.ETC1S_DEFAULT_COMPRESSION_LEVEL;
 
         /// <summary>
         /// Gets or sets the quality level for compression.
@@ -63,23 +52,29 @@ namespace RisKtx2
         /// </remarks>
         public uint QualityLevel
         {
-            get => _qualityLevel;
+            get;
             set
             {
                 if (value < 1 || value > 255)
-                    throw new ArgumentOutOfRangeException(nameof(QualityLevel), "QualityLevel must be in the range [1, 255].");
-                _qualityLevel = value;
+                    throw new ArgumentOutOfRangeException(nameof(QualityLevel),
+                        "QualityLevel must be in the range [1, 255].");
+                field = value;
             }
-        }
+        } = KtxConstants.BASISU_DEFAULT_QUALITY_LEVEL;
 
         /// <summary>
-        /// Specifies whether to use UASTC compression. 
+        /// Specifies whether to use UASTC encoding. 
         /// </summary>
         public bool Uastc { get; set; }
 
         /// <summary>
+        /// Specifies UASTC encoding options.
+        /// </summary>
+        public KtxUastcFlags UastcFlags { get; set; }
+
+        /// <summary>
         /// Tunes codec parameters for better quality on normal maps (no selector RDO, no endpoint RDO) and sets the texture's DFD appropriately.
-	    /// Only valid for linear textures. 
+        /// Only valid for linear textures. 
         /// </summary>
         public bool NormalMap { get; set; }
 
@@ -91,7 +86,7 @@ namespace RisKtx2
         /// <summary>
         /// A swizzle to apply before encoding.
         /// It must match the regular expression /^[rgba01]{4}$/.
-        /// If both this and preSwizzle are specified ktxTexture_CompressBasisEx will raise KTX_INVALID_OPERATION.
+        /// If both this and preSwizzle are specified, ktxTexture_CompressBasisEx will raise KTX_INVALID_OPERATION.
         /// Usable with both ETC1S and UASTC. 
         /// </summary>
         public char[] InputSwizzle { get; set; }
@@ -112,7 +107,7 @@ namespace RisKtx2
 
         /// <summary>
         /// If <c>true</c>>, prints Basis Universal encoder operation details to output stream.
-	    /// Not recommended for GUI apps. 
+        /// Not recommended for GUI apps. 
         /// </summary>
         public bool Verbose { get; set; }
 
@@ -125,8 +120,9 @@ namespace RisKtx2
             var risKtxBasisParams = new ris_ktxBasisParams()
             {
                 uastc = Uastc ? 1u : 0,
+                uastcFlags = (uint)UastcFlags,
                 qualityLevel = QualityLevel,
-                etc1sCompressionLevel = ETC1SCompressionLevel,
+                etc1sCompressionLevel = CompressionLevel,
                 normalMap = NormalMap ? 1u : 0,
                 threadCount = ThreadCount,
                 uastcRDO = UastcRDO ? 1u : 0,
@@ -142,10 +138,10 @@ namespace RisKtx2
                     throw new ArgumentException("InputSwizzle must be an array of 4 characters.", nameof(InputSwizzle));
                 }
 
-                risKtxBasisParams.inputSwizzleR = (byte) InputSwizzle[0];
-                risKtxBasisParams.inputSwizzleG = (byte) InputSwizzle[1];
-                risKtxBasisParams.inputSwizzleB = (byte) InputSwizzle[2];
-                risKtxBasisParams.inputSwizzleA = (byte) InputSwizzle[3];
+                risKtxBasisParams.inputSwizzleR = (byte)InputSwizzle[0];
+                risKtxBasisParams.inputSwizzleG = (byte)InputSwizzle[1];
+                risKtxBasisParams.inputSwizzleB = (byte)InputSwizzle[2];
+                risKtxBasisParams.inputSwizzleA = (byte)InputSwizzle[3];
             }
 
             return risKtxBasisParams;
@@ -156,7 +152,7 @@ namespace RisKtx2
     /// Structure for passing extended parameters to ktxTexture2_CompressBasisEx().
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
-    internal unsafe struct ris_ktxBasisParams
+    internal struct ris_ktxBasisParams
     {
         public ris_ktxBasisParams()
         {
@@ -165,6 +161,7 @@ namespace RisKtx2
             normalMap = 0;
             threadCount = 0;
             uastc = 0;
+            uastcFlags = 0;
             uastcRDO = 0;
             uastcRDOQualityScalar = 0.0f;
             verbose = 0;
@@ -179,6 +176,7 @@ namespace RisKtx2
         public uint normalMap;
         public uint threadCount;
         public uint uastc;
+        public uint uastcFlags;
         public uint uastcRDO;
         public float uastcRDOQualityScalar;
         public uint verbose;
@@ -187,5 +185,4 @@ namespace RisKtx2
         public byte inputSwizzleB;
         public byte inputSwizzleA;
     }
-
 }
