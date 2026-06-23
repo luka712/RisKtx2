@@ -33,12 +33,23 @@ namespace RisKtx2.Native
                          OperatingSystem.IsMacOS() ? ".dylib" : ".so";
 
 
+            // Try to load from the runtimes folder first
             string path = Path.Combine(AppContext.BaseDirectory, "runtimes", rid, "native", BaseName + ext);
-
             if (!File.Exists(path))
             {
                 path = Path.Combine(AppContext.BaseDirectory, "runtimes", rid, "native", "lib" + BaseName + ext);
             }
+
+            // Try to load from root folder next
+            if (!File.Exists(path))
+            {
+                path = Path.Combine(AppContext.BaseDirectory, BaseName + ext);
+            }
+            if(!File.Exists(path))
+            {
+                path = Path.Combine(AppContext.BaseDirectory, "lib" + BaseName + ext);
+            }
+
 
             if (!File.Exists(path))
             {
