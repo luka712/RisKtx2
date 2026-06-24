@@ -362,4 +362,20 @@ internal class StbImageLoaderTest
     }
 
     #endregion
+
+    #region Bug Fixes 
+
+    /// <summary>
+    /// Test with screenshot.png, which was failing in previous releases.
+    /// </summary>
+    [Test]
+    public void Test_Load_Failing_Image_1()
+    {
+        var loader = new StbImageLoader();
+        var image = loader.Load("Data/screenshot.png", 4, VkFormat.R8G8B8A8_UNORM);
+
+        Assert.That(image, Is.Not.Null);
+    }
+
+    #endregion
 }

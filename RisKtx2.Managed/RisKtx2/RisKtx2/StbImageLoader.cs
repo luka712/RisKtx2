@@ -297,7 +297,7 @@ namespace RisKtx2
 
                 int copySize = outputWidth - inputWidth;
                 int lastSourceIndex = rowSourceStartIndex + (inputWidth - 1) * channels;
-                int destIndex = rowDestStartIndex + inputWidth * channels;
+                int destIndex = rowDestStartIndex + (inputWidth - 1) * channels;
                 for (int i = 0; i < copySize; i++)
                 {
                     for (int b = 0; b < channels; b++)
