@@ -17,6 +17,8 @@ namespace RisKtx2
         {
             [VkFormat.R8G8B8A8_UNORM] = 4,
             [VkFormat.B8G8R8A8_UNORM] = 4,
+            [VkFormat.R8G8B8_UNORM] = 3,
+            [VkFormat.B8G8R8_UNORM] = 3,
         };
 
         /// <summary>
@@ -365,21 +367,29 @@ namespace RisKtx2
             {
                 return data; // No swizzling needed
             }
+            
+            int desiredChannels = VkFormatToChannels[desiredFormat];
+            byte[] swizzledData = new byte[width * height * desiredChannels];
+            
+            int channelIndex0 = 0;
+            int channelIndex1 = 1;
+            int channelIndex2 = 2;
+            int channelIndex3 = 3;
 
             if (channels == 4)
             {
-                byte[] swizzledData = new byte[width * height * 4];
-
-                int channelIndex0 = 0;
-                int channelIndex1 = 1;
-                int channelIndex2 = 2;
-                int channelIndex3 = 3;
-
                 if (desiredFormat == VkFormat.B8G8R8A8_UNORM)
                 {
                     channelIndex0 = 2; // R
                     channelIndex1 = 1; // G
                     channelIndex2 = 0; // B
+                    channelIndex3 = 3; // A
+                }
+                else if (desiredFormat == VkFormat.R8G8B8A8_UNORM)
+                {
+                    channelIndex0 = 0; // R
+                    channelIndex1 = 1; // G
+                    channelIndex2 = 2; // B
                     channelIndex3 = 3; // A
                 }
                 else
@@ -387,26 +397,9 @@ namespace RisKtx2
                     throw new NotSupportedException(
                         $"Swizzling from 4 channels to {desiredFormat} is not supported.");
                 }
-
-                for (int i = 0; i < width * height; i++)
-                {
-                    swizzledData[i * 4 + channelIndex0] = data[i * 4 + 0]; // R
-                    swizzledData[i * 4 + channelIndex1] = data[i * 4 + 1]; // G
-                    swizzledData[i * 4 + channelIndex2] = data[i * 4 + 2]; // B
-                    swizzledData[i * 4 + channelIndex3] = data[i * 4 + 3]; // A
-                }
-
-                return swizzledData;
             }
             else if (channels == 3)
             {
-                byte[] swizzledData = new byte[width * height * 4];
-
-                int channelIndex0 = 0;
-                int channelIndex1 = 1;
-                int channelIndex2 = 2;
-                int channelIndex3 = 3;
-
                 if (desiredFormat == VkFormat.B8G8R8A8_UNORM)
                 {
                     channelIndex0 = 2; // R
@@ -414,25 +407,51 @@ namespace RisKtx2
                     channelIndex2 = 0; // B
                     channelIndex3 = 3; // A
                 }
-                else if (desiredFormat != VkFormat.R8G8B8A8_UNORM)
+                else if (desiredFormat == VkFormat.R8G8B8A8_UNORM)
                 {
-                    // The default format is R8G8B8A8_UNORM, so if not in that throw.
+                    channelIndex0 = 0; // R
+                    channelIndex1 = 1; // G
+                    channelIndex2 = 2; // B
+                    channelIndex3 = 3; // A
+                }
+                else if (desiredFormat == VkFormat.B8G8R8_UNORM)
+                {
+                    channelIndex0 = 2; // R
+                    channelIndex1 = 1; // G
+                    channelIndex2 = 0; // B
+                    channelIndex3 = -1; // A not relevant, set to -1 to avoid issues later 
+                }
+                else if (desiredFormat == VkFormat.R8G8B8_UNORM)
+                {
+                    channelIndex0 = 0; // R
+                    channelIndex1 = 1; // G
+                    channelIndex2 = 2; // B
+                    channelIndex3 = -1; // A not relevant, set to -1 to avoid issues later 
+                }
+                else
+                {
                     throw new NotSupportedException(
                         $"Swizzling from 3 channels to {desiredFormat} is not supported.");
                 }
+            }
+            
+            for (int i = 0; i < width * height; i++)
+            {
+                swizzledData[i * desiredChannels + channelIndex0] = data[i * channels + 0]; // R
+                swizzledData[i * desiredChannels + channelIndex1] = data[i * channels + 1]; // G
+                swizzledData[i * desiredChannels + channelIndex2] = data[i * channels + 2]; // B
 
-                for (int i = 0; i < width * height; i++)
+                if (channelIndex3 > -1 && channels == 3)
                 {
-                    swizzledData[i * 4 + channelIndex0] = data[i * 3 + 0]; // R
-                    swizzledData[i * 4 + channelIndex1] = data[i * 3 + 1]; // G
-                    swizzledData[i * 4 + channelIndex2] = data[i * 3 + 2]; // B
-                    swizzledData[i * 4 + channelIndex3] = 255;
+                    swizzledData[i * desiredChannels + channelIndex3] = 255;
                 }
-
-                return swizzledData;
+                else if (channelIndex3 > -1 && channels == 4)
+                {
+                    swizzledData[i * desiredChannels + channelIndex3] = data[i * channels + 3]; // A;
+                }
             }
 
-            throw new NotSupportedException($"Swizzling from {channels} channels is not supported.");
+            return swizzledData;
         }
     }
 }

@@ -1,5 +1,7 @@
 namespace RisKtx2.Tests;
 
+using static Constants;
+
 /// <summary>
 /// Tests for the StbImageLoader class.
 /// </summary>
@@ -7,9 +9,7 @@ namespace RisKtx2.Tests;
 internal class StbImageLoaderTest
 {
     #region Constants
-
-    private const string TEST_PNG = "Data/test.png";
-    private const string LENNA_PNG = "Data/Lenna.png";
+    
     private const string NON_EXISTENT_FILE = "Data/nonexistent.png";
 
     #endregion
@@ -151,6 +151,25 @@ internal class StbImageLoaderTest
         Assert.That(image, Is.Not.Null, "Image should not be null.");
         Assert.That(image.Width, Is.GreaterThan(0), "Width should be greater than 0.");
         Assert.That(image.Height, Is.GreaterThan(0), "Height should be greater than 0.");
+    }
+    
+    /// <summary>
+    /// Test loading jpg image and returning an StbImage object.
+    /// </summary>
+    [Test]
+    public void Test_LoadJpg_ReturnsStbImage()
+    {
+        var loader = new StbImageLoader();
+
+        var image = loader.Load(CAT_PNG, VkFormat.R8G8B8A8_UNORM);
+
+        Assert.That(image, Is.Not.Null, "Image should not be null.");
+        Assert.That(image.Width, Is.GreaterThan(0), "Width should be greater than 0.");
+        Assert.That(image.Height, Is.GreaterThan(0), "Height should be greater than 0.");
+        Assert.That(image.Channels, Is.EqualTo(4), "Channels should be 4 for RGBA format.");
+        Assert.That(image.Format, Is.EqualTo(VkFormat.R8G8B8A8_UNORM), "Format should match requested format.");
+        Assert.That(image.Bytes, Is.Not.Null, "Bytes should not be null.");
+        Assert.That(image.Bytes.Length, Is.EqualTo(image.Width * image.Height * 4), "Byte array length should match dimensions.");
     }
 
     #endregion
